@@ -1,4 +1,5 @@
 *.sh
+*feioutput*
 bib_files
 bib-files
 *.aux
