@@ -1,0 +1,9 @@
+fix node # 5 dofs all;
+fix node # 6 dofs all;
+fix node # 7 dofs all;
+fix node # 8 dofs all;
+fix node # 33 dofs all;
+fix node # 34 dofs all;
+fix node # 35 dofs all;
+fix node # 36 dofs all;
+fix node # 47 dofs all;

@@ -1,0 +1,2 @@
+add load # 1 to node # 2 type linear Fz=50.000000*N; 
+add load # 2 to node # 4 type linear Fz=50.000000*N; 

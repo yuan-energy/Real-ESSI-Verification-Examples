@@ -1,0 +1,82 @@
+model name "Beam_4NodeANDES" ;
+
+h     = 1*m;       
+Eshell  = 1e8*N/m^2; 
+nu    = 0.0;        // Poisson's ratio
+rho   = 0*kg/m^3;     // Mass density
+
+add material # 1 type linear_elastic_isotropic_3d
+  mass_density = rho
+  elastic_modulus = Eshell
+  poisson_ratio = nu;
+
+include "add_node.fei";
+include "element.fei";
+include "constraint.fei"';
+	
+
+////////////////////////////////
+add node # 15 at (3.0*m, 0.5*m, 0.0*m) with 6 dofs;
+b=1*m;
+add element # 7 type beam_elastic with nodes (5, 15) 
+  cross_section =  b*h
+  elastic_modulus =  Eshell *1e3
+  shear_modulus =  Eshell *1e3*0.5
+  torsion_Jx =  0.33*b*h^3
+  bending_Iy =  b*h^3/12
+  bending_Iz =  h*b^3/12
+  mass_density =   rho
+  xz_plane_vector = (1, 0, 1 ) 
+  joint_1_offset = (0*m, 0*m, 0*m ) 
+  joint_2_offset = (0*m, 0*m, 0*m );
+
+add element # 8 type beam_elastic with nodes (12, 15) 
+  cross_section =  b*h
+  elastic_modulus =  Eshell *1e3
+  shear_modulus =  Eshell *1e3*0.5
+  torsion_Jx =  0.33*b*h^3
+  bending_Iy =  b*h^3/12
+  bending_Iz =  h*b^3/12
+  mass_density =   rho
+  xz_plane_vector = (1, 0, 1 ) 
+  joint_1_offset = (0*m, 0*m, 0*m ) 
+  joint_2_offset = (0*m, 0*m, 0*m );
+
+
+////////////////////////////////
+
+
+new loading stage "beam_x";
+//NODE 5 & 12 IN THE middle 3 meters
+add load # 1 to node # 15 type linear Fz=100*N;
+// add load # 2 to node # 12 type linear Fz=50*N;
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+/////////////////////////
+new loading stage "beam_y";
+//NODE 5 & 12 IN THE middle 3 meters
+// remove load # <.>;
+remove load # 1;
+// remove load # 2;
+
+
+
+add load # 2 to node #  15 type linear Fy=100*N;
+// add load # 4 to node # 12 type linear Fy=50*N;
+
+define algorithm With_no_convergence_check ;
+define solver UMFPack;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+
+
+
+
+bye;

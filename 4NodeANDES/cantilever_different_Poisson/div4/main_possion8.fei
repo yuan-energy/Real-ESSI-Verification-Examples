@@ -1,0 +1,47 @@
+model name "8" ;
+
+h     = 1*m;       
+Eshell  = 1e8*N/m^2; 
+nu = 8*0.05; 
+rho   = 0*kg/m^3;     // Mass density
+
+add material # 1 type linear_elastic_isotropic_3d
+  mass_density = rho
+  elastic_modulus = Eshell
+  poisson_ratio = nu;
+
+include "node.fei";
+include "element.fei";
+include "constraint.fei"';
+	
+
+new loading stage "pureBending";
+include "load1.fei";
+//NODE 5 & 12 IN THE middle 3 meters
+
+define algorithm With_no_convergence_check ;
+define solver UMFPack;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+/////////////////////////
+new loading stage "bending_and_shear";
+include "load2.fei";
+//NODE 5 & 12 IN THE middle 3 meters
+// remove load # <.>;
+
+
+
+
+define algorithm With_no_convergence_check ;
+define solver UMFPack;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+
+
+
+
+bye;

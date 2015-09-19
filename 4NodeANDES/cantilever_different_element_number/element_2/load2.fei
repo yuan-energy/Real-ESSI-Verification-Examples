@@ -1,0 +1,4 @@
+remove load # 1;
+remove load # 2;
+add load # 3 to node # 2 type linear Fy=50.000000*N; 
+add load # 4 to node # 4 type linear Fy=50.000000*N; 

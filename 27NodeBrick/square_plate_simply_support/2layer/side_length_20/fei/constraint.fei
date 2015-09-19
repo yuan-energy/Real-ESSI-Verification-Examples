@@ -1,0 +1,12 @@
+fix node #      9 dofs ux    ;
+fix node #      9 dofs uy    ;
+fix node #      9 dofs uz    ;
+fix node #     10 dofs ux    ;
+fix node #     10 dofs uy    ;
+fix node #     10 dofs uz    ;
+fix node #     11 dofs ux    ;
+fix node #     11 dofs uy    ;
+fix node #     11 dofs uz    ;
+fix node #     12 dofs ux    ;
+fix node #     12 dofs uy    ;
+fix node #     12 dofs uz    ;

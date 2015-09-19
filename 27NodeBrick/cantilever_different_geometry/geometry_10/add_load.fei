@@ -1,0 +1,9 @@
+add load # 1 to node # 13 type linear Fx=2.777778*N; 
+add load # 2 to node # 24 type linear Fx=2.777778*N; 
+add load # 3 to node # 3 type linear Fx=2.777778*N; 
+add load # 4 to node # 34 type linear Fx=2.777778*N; 
+add load # 5 to node # 182 type linear Fx=11.111111*N; 
+add load # 6 to node # 177 type linear Fx=11.111111*N; 
+add load # 7 to node # 180 type linear Fx=11.111111*N; 
+add load # 8 to node # 183 type linear Fx=11.111111*N; 
+add load # 9 to node # 186 type linear Fx=44.444444*N; 

@@ -1,0 +1,8 @@
+!/bin/bash
+sed -i 's/shape1/shape2/' *.sh *.m
+time bash -x ./0cp_mac_run.sh
+time bash -x ./1mv_ansys2fei.sh
+time bash -x ./2cp_main_load.sh
+time bash -x ./3add_load.sh
+time bash -x ./4essi_run.sh
+matlab -nojvm -nodesktop -nosplash -r extractResult

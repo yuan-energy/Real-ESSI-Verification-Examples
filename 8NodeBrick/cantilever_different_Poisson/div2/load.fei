@@ -1,0 +1,16 @@
+add load # 1 to node # 16 type linear Fz=6.250000*N; 
+add load # 2 to node # 17 type linear Fz=6.250000*N; 
+add load # 3 to node # 80 type linear Fz=6.250000*N; 
+add load # 4 to node # 106 type linear Fz=6.250000*N; 
+add load # 5 to node # 17 type linear Fz=6.250000*N; 
+add load # 6 to node # 4 type linear Fz=6.250000*N; 
+add load # 7 to node # 106 type linear Fz=6.250000*N; 
+add load # 8 to node # 92 type linear Fz=6.250000*N; 
+add load # 9 to node # 80 type linear Fz=6.250000*N; 
+add load # 10 to node # 106 type linear Fz=6.250000*N; 
+add load # 11 to node # 41 type linear Fz=6.250000*N; 
+add load # 12 to node # 54 type linear Fz=6.250000*N; 
+add load # 13 to node # 106 type linear Fz=6.250000*N; 
+add load # 14 to node # 92 type linear Fz=6.250000*N; 
+add load # 15 to node # 54 type linear Fz=6.250000*N; 
+add load # 16 to node # 53 type linear Fz=6.250000*N; 

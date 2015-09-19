@@ -1,0 +1,9 @@
+add node #      1 at (          0.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      2 at (         20.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      3 at (         10.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      4 at (         20.000000*m,         20.000000*m,          0.000000*m) with 6 dofs;
+add node #      5 at (         20.000000*m,         10.000000*m,          0.000000*m) with 6 dofs;
+add node #      6 at (          0.000000*m,         20.000000*m,          0.000000*m) with 6 dofs;
+add node #      7 at (         10.000000*m,         20.000000*m,          0.000000*m) with 6 dofs;
+add node #      8 at (          0.000000*m,         10.000000*m,          0.000000*m) with 6 dofs;
+add node #      9 at (         10.000000*m,         10.000000*m,          0.000000*m) with 6 dofs;

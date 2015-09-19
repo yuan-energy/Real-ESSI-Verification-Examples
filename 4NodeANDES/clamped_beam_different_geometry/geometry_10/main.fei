@@ -1,0 +1,51 @@
+model name "Beam_4NodeANDES" ;
+
+h     = 1*m;       
+Eshell  = 1e8*N/m^2; 
+nu    = 0.0;        // Poisson's ratio
+rho   = 0*kg/m^3;     // Mass density
+
+add material # 1 type linear_elastic_isotropic_3d
+  mass_density = rho
+  elastic_modulus = Eshell
+  poisson_ratio = nu;
+
+include "add_node.fei";
+include "element.fei";
+include "constraint.fei"';
+	
+
+new loading stage "x";
+//NODE 7 & 18 IN THE middle 5 meters
+add load # 1 to node #  7 type linear Fz=50*N;
+add load # 2 to node # 18 type linear Fz=50*N;
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+/////////////////////////
+new loading stage "y";
+//NODE 7 & 18 IN THE middle 5 meters
+// remove load # <.>;
+remove load # 1;
+remove load # 2;
+
+
+
+add load # 3 to node #  7 type linear Fy=50*N;
+add load # 4 to node # 18 type linear Fy=50*N;
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+
+
+
+
+bye;

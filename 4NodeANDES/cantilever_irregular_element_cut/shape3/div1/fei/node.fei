@@ -1,0 +1,20 @@
+a=1.9;
+add node #      1 at (         12.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+
+add node #      2 at (         (10.00+a)*m,          0.000000*m,          0.000000*m) with 6 dofs;
+
+add node #      3 at (         12.000000*m,          2.000000*m,          0.000000*m) with 6 dofs;
+
+add node #      4 at (         (10.00-a)*m,          2.000000*m,          0.000000*m) with 6 dofs;
+add node #      5 at (          0.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+
+add node #      6 at (          (2.00+a)*m,          0.000000*m,          0.000000*m) with 6 dofs;
+
+add node #      7 at (          (2.00-a)*m,          2.000000*m,          0.000000*m) with 6 dofs;
+add node #      8 at (          0.000000*m,          2.000000*m,          0.000000*m) with 6 dofs;
+add node #      9 at (          (4.00+a)*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #     10 at (          (4.00-a)*m,          2.000000*m,          0.000000*m) with 6 dofs;
+add node #     11 at (          (6.00+a)*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #     12 at (          (6.00-a)*m,          2.000000*m,          0.000000*m) with 6 dofs;
+add node #     13 at (          (8.00+a)*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #     14 at (          (8.00-a)*m,          2.000000*m,          0.000000*m) with 6 dofs;

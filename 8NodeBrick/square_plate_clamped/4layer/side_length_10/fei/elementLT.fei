@@ -1,0 +1,16 @@
+add element #       1 type 8NodeBrickLT with nodes(      2,      3,      9,      8,     21,     39,     43,     27) use material #   1;
+add element #       2 type 8NodeBrickLT with nodes(      8,      9,      7,      6,     27,     43,     42,     22) use material #   1;
+add element #       3 type 8NodeBrickLT with nodes(      3,      1,      5,      9,     39,     33,     36,     43) use material #   1;
+add element #       4 type 8NodeBrickLT with nodes(      9,      5,      4,      7,     43,     36,     28,     42) use material #   1;
+add element #       5 type 8NodeBrickLT with nodes(     21,     39,     43,     27,     20,     38,     44,     26) use material #   1;
+add element #       6 type 8NodeBrickLT with nodes(     27,     43,     42,     22,     26,     44,     41,     23) use material #   1;
+add element #       7 type 8NodeBrickLT with nodes(     39,     33,     36,     43,     38,     32,     35,     44) use material #   1;
+add element #       8 type 8NodeBrickLT with nodes(     43,     36,     28,     42,     44,     35,     29,     41) use material #   1;
+add element #       9 type 8NodeBrickLT with nodes(     20,     38,     44,     26,     19,     37,     45,     25) use material #   1;
+add element #      10 type 8NodeBrickLT with nodes(     26,     44,     41,     23,     25,     45,     40,     24) use material #   1;
+add element #      11 type 8NodeBrickLT with nodes(     38,     32,     35,     44,     37,     31,     34,     45) use material #   1;
+add element #      12 type 8NodeBrickLT with nodes(     44,     35,     29,     41,     45,     34,     30,     40) use material #   1;
+add element #      13 type 8NodeBrickLT with nodes(     19,     37,     45,     25,     10,     17,     18,     12) use material #   1;
+add element #      14 type 8NodeBrickLT with nodes(     25,     45,     40,     24,     12,     18,     14,     11) use material #   1;
+add element #      15 type 8NodeBrickLT with nodes(     37,     31,     34,     45,     17,     15,     16,     18) use material #   1;
+add element #      16 type 8NodeBrickLT with nodes(     45,     34,     30,     40,     18,     16,     13,     14) use material #   1;

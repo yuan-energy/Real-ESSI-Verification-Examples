@@ -1,0 +1,16 @@
+add element #       1 type 4NodeShell_ANDES with nodes(      1,      3,     17,     16) use material #   1 thickness=h;
+add element #       2 type 4NodeShell_ANDES with nodes(      3,      4,     20,     17) use material #   1 thickness=h;
+add element #       3 type 4NodeShell_ANDES with nodes(      4,      5,     23,     20) use material #   1 thickness=h;
+add element #       4 type 4NodeShell_ANDES with nodes(      5,      2,      7,     23) use material #   1 thickness=h;
+add element #       5 type 4NodeShell_ANDES with nodes(     16,     17,     18,     15) use material #   1 thickness=h;
+add element #       6 type 4NodeShell_ANDES with nodes(     17,     20,     21,     18) use material #   1 thickness=h;
+add element #       7 type 4NodeShell_ANDES with nodes(     20,     23,     24,     21) use material #   1 thickness=h;
+add element #       8 type 4NodeShell_ANDES with nodes(     23,      7,      8,     24) use material #   1 thickness=h;
+add element #       9 type 4NodeShell_ANDES with nodes(     15,     18,     19,     14) use material #   1 thickness=h;
+add element #      10 type 4NodeShell_ANDES with nodes(     18,     21,     22,     19) use material #   1 thickness=h;
+add element #      11 type 4NodeShell_ANDES with nodes(     21,     24,     25,     22) use material #   1 thickness=h;
+add element #      12 type 4NodeShell_ANDES with nodes(     24,      8,      9,     25) use material #   1 thickness=h;
+add element #      13 type 4NodeShell_ANDES with nodes(     14,     19,     13,     10) use material #   1 thickness=h;
+add element #      14 type 4NodeShell_ANDES with nodes(     19,     22,     12,     13) use material #   1 thickness=h;
+add element #      15 type 4NodeShell_ANDES with nodes(     22,     25,     11,     12) use material #   1 thickness=h;
+add element #      16 type 4NodeShell_ANDES with nodes(     25,      9,      6,     11) use material #   1 thickness=h;

@@ -1,0 +1,57 @@
+model name "Clamped_4ANDES_half" ;
+
+h     = 1*m;       
+Eshell  = 1e8*N/m^2; 
+nu    = 0.0;        // Poisson's ratio
+rho   = 0*kg/m^3;     // Mass density
+
+add material # 1 type linear_elastic_isotropic_3d
+  mass_density = rho
+  elastic_modulus = Eshell
+  poisson_ratio = nu;
+
+include "node.fei";
+include "element.fei";
+include "constraint.fei"';
+	
+
+
+
+new loading stage "pureBending";
+add load # 1 to node # 34 type linear Fz=50.000000*N; 
+add load # 2 to node # 8 type linear  Fz=25.000000*N; 
+add load # 3 to node # 22 type linear Fz=25.000000*N; 
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+
+
+
+
+
+/////////////////////////
+new loading stage "bendingShear";
+remove load # 1;
+remove load # 2;
+remove load # 3;
+
+
+add load # 1 to node # 34 type linear Fy=50.000000*N; 
+add load # 2 to node # 8 type linear  Fy=25.000000*N; 
+add load # 3 to node # 22 type linear Fy=25.000000*N; 
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+
+
+
+
+bye;

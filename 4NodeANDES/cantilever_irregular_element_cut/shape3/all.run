@@ -1,0 +1,12 @@
+#!/bin/bash
+sed -i 's/shape2/shape3/' *.sh *.m
+time bash -x ./0cp_mac_run.sh
+time bash -x ./1mv_ansys2fei.sh
+time bash -x ./2cp_main_load.sh
+time bash -x ./3add_load.sh
+time bash -x ./4essi_run.sh
+matlab -nojvm -nodesktop -nosplash -r extractResult
+
+
+#shape 3 -- div 1 has a too large deformation. The fei should be written by hand....
+#(1.standard fei first. 2. change node.fei)

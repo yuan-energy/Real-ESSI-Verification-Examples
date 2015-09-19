@@ -1,0 +1,5 @@
+add acceleration field # 1
+	 ax =  0*g
+	 ay =  0*g
+	 az =  1*m/s^2;
+add load # 1 to element # 1 type self_weight use acceleration field # 1;

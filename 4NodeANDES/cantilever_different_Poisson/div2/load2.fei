@@ -1,0 +1,9 @@
+remove load # 1;
+remove load # 2;
+remove load # 3;
+add load # 1 to node # 2 type linear Fy=25*N;
+add load # 2 to node # 15 type linear Fy=25*N;
+add load # 3 to node # 14 type linear Fy=50*N;
+
+
+	

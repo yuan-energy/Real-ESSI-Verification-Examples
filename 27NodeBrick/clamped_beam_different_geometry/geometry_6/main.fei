@@ -1,0 +1,68 @@
+model name "6clamped27brick" ;
+
+h     = 1*m;       
+Eshell  = 1e8*N/m^2; 
+nu    = 0.0;        // Poisson's ratio
+rho   = 0*kg/m^3;     // Mass density
+
+add material # 1 type linear_elastic_isotropic_3d
+  mass_density = rho
+  elastic_modulus = Eshell
+  poisson_ratio = nu;
+
+include "node.fei";
+include "element.fei";
+include "constraint.fei"';
+	
+
+new loading stage "Fz";
+add load # 1 to node # 12 type linear Fz=2.777778*N; 
+add load # 2 to node # 19 type linear Fz=2.777778*N; 
+add load # 3 to node # 6 type linear  Fz=2.777778*N; 
+add load # 4 to node # 26 type linear Fz=2.777778*N; 
+add load # 5 to node # 68 type linear Fz=11.111111*N; 
+add load # 6 to node # 63 type linear Fz=11.111111*N; 
+add load # 7 to node # 66 type linear Fz=11.111111*N; 
+add load # 8 to node # 69 type linear Fz=11.111111*N; 
+add load # 9 to node # 72 type linear Fz=44.444444*N; 
+
+define algorithm With_no_convergence_check ;
+define solver UMFPack;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+/////////////////////////
+new loading stage "Fy";
+remove load # 1;
+remove load # 2;
+remove load # 3;
+remove load # 4;
+remove load # 5;
+remove load # 6;
+remove load # 7;
+remove load # 8;
+remove load # 9;
+
+add load # 10 to node # 12 type linear Fy=2.777778*N; 
+add load # 11 to node # 19 type linear Fy=2.777778*N; 
+add load # 12 to node #  6 type linear Fy=2.777778*N; 
+add load # 13 to node # 26 type linear Fy=2.777778*N; 
+add load # 14 to node # 68 type linear Fy=11.111111*N; 
+add load # 15 to node # 63 type linear Fy=11.111111*N; 
+add load # 16 to node # 66 type linear Fy=11.111111*N; 
+add load # 17 to node # 69 type linear Fy=11.111111*N; 
+add load # 18 to node # 72 type linear Fy=44.444444*N; 
+
+
+define algorithm With_no_convergence_check ;
+define solver UMFPack;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+
+
+
+
+bye;

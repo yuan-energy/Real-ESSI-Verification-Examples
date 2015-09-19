@@ -1,0 +1,4 @@
+add element #       1 type 4NodeShell_ANDES with nodes(      1,      3,      9,      8) use material #   1 thickness=h;
+add element #       2 type 4NodeShell_ANDES with nodes(      3,      2,      5,      9) use material #   1 thickness=h;
+add element #       3 type 4NodeShell_ANDES with nodes(      8,      9,      7,      6) use material #   1 thickness=h;
+add element #       4 type 4NodeShell_ANDES with nodes(      9,      5,      4,      7) use material #   1 thickness=h;

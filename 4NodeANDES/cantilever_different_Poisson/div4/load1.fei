@@ -1,0 +1,5 @@
+add load # 1 to node #  2 type linear Fz=12.5*N;
+add load # 2 to node # 26 type linear Fz=12.5*N;
+add load # 3 to node # 27 type linear Fz=25*N;
+add load # 4 to node # 28 type linear Fz=25*N;
+add load # 5 to node # 29 type linear Fz=25*N;

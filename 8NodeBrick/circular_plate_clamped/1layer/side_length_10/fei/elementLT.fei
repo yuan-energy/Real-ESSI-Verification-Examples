@@ -1,0 +1,12 @@
+add element #       1 type 8NodeBrickLT with nodes(      6,      2,      8,     10,      4,      1,     13,     14) use material #   1;
+add element #       2 type 8NodeBrickLT with nodes(      9,      5,      6,     10,     12,      3,      4,     14) use material #   1;
+add element #       3 type 8NodeBrickLT with nodes(      8,      7,      9,     10,     13,     11,     12,     14) use material #   1;
+add element #       4 type 8NodeBrickLT with nodes(     16,     15,     20,     21,     18,     17,     19,     22) use material #   1;
+add element #       5 type 8NodeBrickLT with nodes(      6,      5,     16,     21,      4,      3,     18,     22) use material #   1;
+add element #       6 type 8NodeBrickLT with nodes(     20,      2,      6,     21,     19,      1,      4,     22) use material #   1;
+add element #       7 type 8NodeBrickLT with nodes(     18,     17,     27,     28,     16,     15,     29,     30) use material #   1;
+add element #       8 type 8NodeBrickLT with nodes(     24,      3,     18,     28,     26,      5,     16,     30) use material #   1;
+add element #       9 type 8NodeBrickLT with nodes(     27,     23,     24,     28,     29,     25,     26,     30) use material #   1;
+add element #      10 type 8NodeBrickLT with nodes(      9,      7,     31,     32,     12,     11,     33,     34) use material #   1;
+add element #      11 type 8NodeBrickLT with nodes(     26,      5,      9,     32,     24,      3,     12,     34) use material #   1;
+add element #      12 type 8NodeBrickLT with nodes(     31,     25,     26,     32,     33,     23,     24,     34) use material #   1;

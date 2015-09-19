@@ -1,0 +1,2 @@
+add element #       1 type 8NodeBrickLT with nodes(      2,      1,      4,      6,      7,     11,     12,      9) use material #   1;
+add element #       2 type 8NodeBrickLT with nodes(      6,      4,      3,      5,      9,     12,     10,      8) use material #   1;

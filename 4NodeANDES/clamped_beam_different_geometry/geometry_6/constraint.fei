@@ -1,0 +1,4 @@
+fix node #      1 dofs all    ;
+fix node #      2 dofs all    ;
+fix node #      8 dofs all    ;
+fix node #      9 dofs all    ;
