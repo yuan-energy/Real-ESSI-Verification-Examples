@@ -1,0 +1,177 @@
+model name "brick_5element" ;
+
+// Geometry: width and height
+b=0.2*m;
+h=0.2*m;
+
+// Materials: properties
+natural_period    = 1*s;				
+natural_frequency  = 2*pi/natural_period;
+elastic_constant  = 1e9*N/m^2; 
+I=b*h^3/12.0;
+A=b*h;
+L=1*m;
+rho 	= (1.8751)^4*elastic_constant*I/(natural_frequency^2*L^4*A);
+possion_ratio=0.3;
+
+
+add material # 1 type linear_elastic_isotropic_3d_LT
+  mass_density = rho
+  elastic_modulus = elastic_constant
+  poisson_ratio = possion_ratio;
+
+add node # 1 at (0.0*m, 0.0*m , 0.0*m) with 3 dofs;
+add node # 2 at (0.1*m, 0.0*m , 0.0*m) with 3 dofs;
+add node # 3 at (0.2*m, 0.0*m , 0.0*m) with 3 dofs;
+add node # 4 at (0.0*m, 0.1*m , 0.0*m) with 3 dofs;
+add node # 5 at (0.1*m, 0.1*m , 0.0*m) with 3 dofs;
+add node # 6 at (0.2*m, 0.1*m , 0.0*m) with 3 dofs;
+add node # 7 at (0.0*m, 0.2*m , 0.0*m) with 3 dofs;
+add node # 8 at (0.1*m, 0.2*m , 0.0*m) with 3 dofs;
+add node # 9 at (0.2*m, 0.2*m , 0.0*m) with 3 dofs;
+
+fix node No 1 dofs ux uy uz;
+fix node No 2 dofs ux uy uz;
+fix node No 3 dofs ux uy uz;
+fix node No 4 dofs ux uy uz;
+fix node No 5 dofs ux uy uz;
+fix node No 6 dofs ux uy uz;
+fix node No 7 dofs ux uy uz;
+fix node No 8 dofs ux uy uz;
+fix node No 9 dofs ux uy uz;
+e = 0;
+hh = 0*m;
+NBricks=5;
+dz = 0.2*m;
+while ( e < NBricks)
+{
+	hh += dz;
+	add node # 10+18*e at (0.0*m, 0.0*m , hh - 0.5*dz) with 3 dofs;
+	add node # 11+18*e at (0.1*m, 0.0*m , hh - 0.5*dz) with 3 dofs;
+	add node # 12+18*e at (0.2*m, 0.0*m , hh - 0.5*dz) with 3 dofs;
+	add node # 13+18*e at (0.0*m, 0.1*m , hh - 0.5*dz) with 3 dofs;
+	add node # 14+18*e at (0.1*m, 0.1*m , hh - 0.5*dz) with 3 dofs;
+	add node # 15+18*e at (0.2*m, 0.1*m , hh - 0.5*dz) with 3 dofs;
+	add node # 16+18*e at (0.0*m, 0.2*m , hh - 0.5*dz) with 3 dofs;
+	add node # 17+18*e at (0.1*m, 0.2*m , hh - 0.5*dz) with 3 dofs;
+	add node # 18+18*e at (0.2*m, 0.2*m , hh - 0.5*dz) with 3 dofs;
+	
+	add node # 19+18*e at (0.0*m, 0.0*m , hh) with 3 dofs;
+	add node # 20+18*e at (0.1*m, 0.0*m , hh) with 3 dofs;
+	add node # 21+18*e at (0.2*m, 0.0*m , hh) with 3 dofs;
+	add node # 22+18*e at (0.0*m, 0.1*m , hh) with 3 dofs;
+	add node # 23+18*e at (0.1*m, 0.1*m , hh) with 3 dofs;
+	add node # 24+18*e at (0.2*m, 0.1*m , hh) with 3 dofs;
+	add node # 25+18*e at (0.0*m, 0.2*m , hh) with 3 dofs;
+	add node # 26+18*e at (0.1*m, 0.2*m , hh) with 3 dofs;
+	add node # 27+18*e at (0.2*m, 0.2*m , hh) with 3 dofs;
+
+	add element # e+1 type 27NodeBrickLT with nodes 
+		(
+			21+18*e,
+			27+18*e,
+			25+18*e,
+			19+18*e,
+
+			 3+18*e,
+			 9+18*e,
+			 7+18*e,
+			 1+18*e,
+
+			24+18*e,
+			26+18*e,
+			22+18*e,
+			20+18*e,
+
+			 6+18*e,
+			 8+18*e,
+			 4+18*e,
+			 2+18*e,
+
+			12+18*e,
+			18+18*e,
+			16+18*e,
+			10+18*e,
+
+			14+18*e,
+			15+18*e,
+			17+18*e,
+			13+18*e,
+			11+18*e,
+			23+18*e,
+			 5+18*e
+		) 
+		use material # 1;
+
+	e += 1;
+};
+
+
+e = e -1;
+
+	
+// // ----------------------------------------------------------------------------
+// // --slowLoading---------------------------------------------------------------
+// // add the 1 Newton load in 180 seconds. 
+// // ----------------------------------------------------------------------------
+// new loading stage "slowLoading";
+// add load # 1 to node # (19+18*e) type path_time_series Fx=1/36.0*N series_file = "slowLoading.txt";
+// add load # 2 to node # (20+18*e) type path_time_series Fx=1/9.0*N series_file = "slowLoading.txt";
+// add load # 3 to node # (21+18*e) type path_time_series Fx=1/36.0*N series_file = "slowLoading.txt";
+// add load # 4 to node # (22+18*e) type path_time_series Fx=1/9.0*N series_file = "slowLoading.txt";
+// add load # 5 to node # (23+18*e) type path_time_series Fx=4/9.0*N series_file = "slowLoading.txt";
+// add load # 6 to node # (24+18*e) type path_time_series Fx=1/9.0*N series_file = "slowLoading.txt";
+// add load # 7 to node # (25+18*e) type path_time_series Fx=1/36.0*N series_file = "slowLoading.txt";
+// add load # 8 to node # (26+18*e) type path_time_series Fx=1/9.0*N series_file = "slowLoading.txt";
+// add load # 9 to node # (27+18*e) type path_time_series Fx=1/36.0*N series_file = "slowLoading.txt";
+// // add algorithm and solver
+// define dynamic integrator Newmark with gamma = 0.5 beta = 0.25;
+// define algorithm With_no_convergence_check ;
+// define solver ProfileSPD;
+// simulate 2000 steps using transient algorithm 
+// 	time_step = 0.1*s;
+
+// // ----------------------------------------------------------------------------
+// // --fastLoading---------------------------------------------------------------
+// // add the 1 Newton load in 0.6 seconds.
+// // ----------------------------------------------------------------------------
+// new loading stage "fastLoading";
+// add load # 101 to node # (19+18*e) type path_time_series Fx=1/36.0*N series_file = "fastLoading.txt" ; 
+// add load # 102 to node # (20+18*e) type path_time_series Fx=1/9.0*N series_file = "fastLoading.txt" ; 
+// add load # 103 to node # (21+18*e) type path_time_series Fx=1/36.0*N series_file = "fastLoading.txt" ; 
+// add load # 104 to node # (22+18*e) type path_time_series Fx=1/9.0*N series_file = "fastLoading.txt" ; 
+// add load # 105 to node # (23+18*e) type path_time_series Fx=4/9.0*N series_file = "fastLoading.txt" ; 
+// add load # 106 to node # (24+18*e) type path_time_series Fx=1/9.0*N series_file = "fastLoading.txt" ; 
+// add load # 107 to node # (25+18*e) type path_time_series Fx=1/36.0*N series_file = "fastLoading.txt" ; 
+// add load # 108 to node # (26+18*e) type path_time_series Fx=1/9.0*N series_file = "fastLoading.txt" ; 
+// add load # 109 to node # (27+18*e) type path_time_series Fx=1/36.0*N series_file = "fastLoading.txt" ; 
+// // add algorithm and solver
+// define dynamic integrator Newmark with gamma = 0.5 beta = 0.25;
+// define algorithm With_no_convergence_check ;
+// define solver ProfileSPD;
+// simulate 1000 steps using transient algorithm 
+// 	time_step = 0.01*s;
+
+// // ----------------------------------------------------------------------------
+// // --freeVibration---------------------------------------------------------------
+// // add a load and then release to free vibration
+// // ----------------------------------------------------------------------------
+new loading stage "freeVibration";
+add load # 201 to node # (19+18*e) type path_time_series Fx=1/36.0*N series_file = "freeVibration.txt" ; 
+add load # 202 to node # (20+18*e) type path_time_series Fx=1/9.0*N series_file = "freeVibration.txt" ; 
+add load # 203 to node # (21+18*e) type path_time_series Fx=1/36.0*N series_file = "freeVibration.txt" ; 
+add load # 204 to node # (22+18*e) type path_time_series Fx=1/9.0*N series_file = "freeVibration.txt" ; 
+add load # 205 to node # (23+18*e) type path_time_series Fx=4/9.0*N series_file = "freeVibration.txt" ; 
+add load # 206 to node # (24+18*e) type path_time_series Fx=1/9.0*N series_file = "freeVibration.txt" ; 
+add load # 207 to node # (25+18*e) type path_time_series Fx=1/36.0*N series_file = "freeVibration.txt" ; 
+add load # 208 to node # (26+18*e) type path_time_series Fx=1/9.0*N series_file = "freeVibration.txt" ; 
+add load # 209 to node # (27+18*e) type path_time_series Fx=1/36.0*N series_file = "freeVibration.txt" ; 
+// add algorithm and solver
+define dynamic integrator Newmark with gamma = 0.5 beta = 0.25;
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+simulate 100 steps using transient algorithm 
+	time_step = 0.1*s;
+
+// end
+bye;

@@ -1,0 +1,60 @@
+model name "square_plate" ;
+
+add material # 1 type linear_elastic_isotropic_3d
+  mass_density = 1e2*kg/m^3
+  elastic_modulus = 1e8*N/m^2
+  poisson_ratio = 0.3;
+
+add node #      1 at (          0.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      2 at (         20.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      3 at (          1.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      4 at (          2.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      5 at (          3.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      6 at (          4.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+...
+...
+add node #    441 at (         19.000000*m,         19.000000*m,          0.000000*m) with 6 dofs;
+
+
+h     = 1*m;       
+add element #       1 type 4NodeShell_ANDES with nodes(      1,      3,     81,     80) use material #   1 thickness=h;
+add element #       2 type 4NodeShell_ANDES with nodes(      3,      4,    100,     81) use material #   1 thickness=h;
+add element #       3 type 4NodeShell_ANDES with nodes(      4,      5,    119,    100) use material #   1 thickness=h;
+add element #       4 type 4NodeShell_ANDES with nodes(      5,      6,    138,    119) use material #   1 thickness=h;
+add element #       5 type 4NodeShell_ANDES with nodes(      6,      7,    157,    138) use material #   1 thickness=h;
+add element #       6 type 4NodeShell_ANDES with nodes(      7,      8,    176,    157) use material #   1 thickness=h;
+...
+...
+add element #     400 type 4NodeShell_ANDES with nodes(    441,     41,     22,     43) use material #   1 thickness=h;
+
+
+fix node #      1 dofs all    ;
+fix node #      2 dofs all    ;
+fix node #      3 dofs all    ;
+fix node #      4 dofs all    ;
+fix node #      5 dofs all    ;
+fix node #      6 dofs all    ;
+...
+...
+fix node #     80 dofs all    ;
+
+
+new loading stage "self_weight";
+add acceleration field # 1 	 ax =  0*g 	 ay =  0*g 	 az =  1*m/s^2;
+add load # 1 to element # 1 type self_weight use acceleration field # 1;
+add load # 2 to element # 2 type self_weight use acceleration field # 1;
+add load # 3 to element # 3 type self_weight use acceleration field # 1;
+add load # 4 to element # 4 type self_weight use acceleration field # 1;
+add load # 5 to element # 5 type self_weight use acceleration field # 1;
+add load # 6 to element # 6 type self_weight use acceleration field # 1;
+...
+...
+add load # 400 to element # 400 type self_weight use acceleration field # 1;
+
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+bye;

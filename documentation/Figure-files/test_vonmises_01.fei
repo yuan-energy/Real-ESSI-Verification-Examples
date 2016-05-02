@@ -1,0 +1,89 @@
+// model name "name_string";
+model name "vonmisesLT";
+
+
+gamma_max = 3e-3;
+
+add node # 1 at (0*m,0*m,0*m)  with 3 dofs;
+add node # 2 at (0*m,0*m,1*m)  with 3 dofs;
+
+fix node # 1 dofs all;
+fix node # 2 dofs uy ;
+
+
+
+
+add material # 1 type VonMisesLT 
+	mass_density = 0*kg/m^3
+	elastic_modulus = 1000*kPa
+	poisson_ratio = 0.3 
+	von_mises_radius = 1*kPa
+	kinematic_hardening_rate = 100*kPa
+	isotropic_hardening_rate = 0*kPa ;
+	
+
+add element # 1 type ShearBeamLT with nodes (1, 2) 
+	cross_section = 1*m^2 use material # 1;
+
+
+	
+
+
+// // new loading stage "name_string";
+// new loading stage "confinement";
+
+// // add load # <.> to node # <.> type linear FORCETYPE = <force or moment>; //FORCETYPE = Fx Fy Fz Mx My Mz F_fluid_x F_fluid_y F_fluid_z
+// add load # 1 to node # 2 type linear 
+// 	Fz = -200*kN;
+
+
+	
+// define load factor increment 0.01;
+// define algorithm With_no_convergence_check ;
+// define solver  UMFPack;
+
+// simulate 100 steps using static algorithm;
+
+
+
+new loading stage "test01";
+
+
+// add imposed motion # <.> to node # <.> dof DOFTYPE time_step = <t> displacement_scale_unit = <length> displacement_file = "filename" velocity_scale_unit = <velocity> velocity_file = "filename" acceleration_scale_unit = <acceleration> acceleration_file = "filename";
+// add imposed motion # 2 to node # 2 dof ux
+// 	displacement_scale_unit =  gamma_max*m
+// 	displacement_file =  "input_sine.txt"
+// 	velocity_scale_unit =  gamma_max*m/s
+// 	velocity_file =  "input_sine.txt"
+// 	acceleration_scale_unit =  gamma_max*m/s^2
+// 	acceleration_file = "input_sine.txt";
+
+add imposed motion # 2 to node # 2 dof ux
+	displacement_scale_unit =  gamma_max*m
+	displacement_file =  "input_noisysine.txt"
+	velocity_scale_unit =  gamma_max*m/s
+	velocity_file =  "input_noisysine.txt"
+	acceleration_scale_unit =  gamma_max*m/s^2
+	acceleration_file = "input_noisysine.txt";
+
+
+define load factor increment 0.0005;
+define algorithm With_no_convergence_check ;
+define solver  UMFPack;
+
+simulate 2000 steps using static algorithm;
+
+bye;
+
+
+	
+
+	
+
+
+
+
+
+
+
+	

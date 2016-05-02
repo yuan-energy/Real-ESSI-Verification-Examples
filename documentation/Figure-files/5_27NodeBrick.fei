@@ -1,0 +1,51 @@
+model name "6meter_cantilever_27brick" ;
+
+add material # 1 type linear_elastic_isotropic_3d
+  mass_density = 0*kg/m^3
+  elastic_modulus = 1e8*N/m^2
+  poisson_ratio = 0.0;
+
+add node #        1 at (   0.0000 *m,   1.0000 *m,  0.0000 *m) with 3 dofs;
+add node #        2 at (   0.0000 *m,   0.0000 *m,  0.0000 *m) with 3 dofs;
+add node #        3 at (   6.0000 *m,   1.0000 *m,  0.0000 *m) with 3 dofs;
+add node #        4 at (   5.0000 *m,   1.0000 *m,  0.0000 *m) with 3 dofs;
+add node #        5 at (   4.0000 *m,   1.0000 *m,  0.0000 *m) with 3 dofs;
+add node #        6 at (   3.0000 *m,   1.0000 *m,  0.0000 *m) with 3 dofs;
+...
+...
+add node #      117 at (   5.5000 *m,   0.5000 *m,  1.0000 *m) with 3 dofs;
+
+add element #         1 type 27NodeBrickLT with nodes(       2,      10,       8,       1,      15,      17,      28,      23,      29,      30,      31,      32,      33,      34,      35,      36,      37,      38,      39,      40,      41,      42,      43,      44,      45,      46,      47) use material #        1; 
+add element #         2 type 27NodeBrickLT with nodes(      10,      11,       7,       8,      17,      18,      27,      28,      48,      49,      50,      30,      51,      52,      53,      34,      38,      54,      55,      39,      56,      57,      58,      59,      43,      60,      61) use material #        1; 
+add element #         3 type 27NodeBrickLT with nodes(      11,      12,       6,       7,      18,      19,      26,      27,      62,      63,      64,      49,      65,      66,      67,      52,      54,      68,      69,      55,      70,      71,      72,      73,      58,      74,      75) use material #        1; 
+add element #         4 type 27NodeBrickLT with nodes(      12,      13,       5,       6,      19,      20,      25,      26,      76,      77,      78,      63,      79,      80,      81,      66,      68,      82,      83,      69,      84,      85,      86,      87,      72,      88,      89) use material #        1; 
+add element #         5 type 27NodeBrickLT with nodes(      13,      14,       4,       5,      20,      21,      24,      25,      90,      91,      92,      77,      93,      94,      95,      80,      82,      96,      97,      83,      98,      99,     100,     101,      86,     102,     103) use material #        1; 
+add element #         6 type 27NodeBrickLT with nodes(      14,       9,       3,       4,      21,      16,      22,      24,     104,     105,     106,      91,     107,     108,     109,      94,      96,     110,     111,      97,     112,     113,     114,     115,     100,     116,     117) use material #        1; 
+
+fix node # 1 dofs all;
+fix node # 2 dofs all;
+fix node # 15 dofs all;
+fix node # 23 dofs all;
+fix node # 32 dofs all;
+fix node # 36 dofs all;
+fix node # 37 dofs all;
+fix node # 40 dofs all;
+fix node # 45 dofs all;
+
+new loading stage "Fz";
+add load # 1 to node # 13 type linear Fz=2.777778*N; 
+add load # 2 to node # 24 type linear Fz=2.777778*N; 
+add load # 3 to node # 3 type linear Fz=2.777778*N; 
+add load # 4 to node # 34 type linear Fz=2.777778*N; 
+add load # 5 to node # 182 type linear Fz=11.111111*N; 
+add load # 6 to node # 177 type linear Fz=11.111111*N; 
+add load # 7 to node # 180 type linear Fz=11.111111*N; 
+add load # 8 to node # 183 type linear Fz=11.111111*N; 
+add load # 9 to node # 186 type linear Fz=44.444444*N; 
+
+define algorithm With_no_convergence_check ;
+define solver UMFPack;
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+bye;

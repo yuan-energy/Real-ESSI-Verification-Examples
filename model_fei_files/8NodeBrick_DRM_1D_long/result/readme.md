@@ -1,0 +1,1 @@
+The result can also be seen from this [video](http://sokocalo.engr.ucdavis.edu/~jeremic/lecture_notes_online_material/_Chapter_Applications_Earthquake_Soil_Structure_Interaction_General_Aspects/Animation_DRM_1D.mp4).

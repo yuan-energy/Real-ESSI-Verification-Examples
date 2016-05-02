@@ -1,0 +1,161 @@
+// Drucker Prager Armstrong Frederick
+// This model is created by Jose.
+model name "druckeraf";
+
+// Parameters:
+phi   = 5;
+ha      = 1000;
+cr      = 973;
+gam        = 0.01;
+integ      = 1;  //# 1   = euler
+Ncyc       = 5;
+Nsteps     = 1000;
+sc=0;  //#=1 if stress controlled, otherwise strain controlled
+H=1;
+vp=1000*m/s;
+vs=500*m/s; 
+rho=2000*kg/m^3;
+p0 = 250*kPa;
+G = rho*vs^2;
+M = rho*vp^2;
+
+//From wiki (https://en.wikipedia.org/wiki/Elastic_modulus)
+E = G*(3*M-4*G)/(M-G);
+nu = (M-2*G)/(2*M-2*G);
+
+K0 = 1.0;
+phirad = pi*phi/180;
+M = 6*sin(phirad)/(3-sin(phirad));
+
+// Define the material:
+add material # 1 type DruckerPragerArmstrongFrederickLT
+    mass_density = 0*kg/m^3 
+    elastic_modulus =  E
+    poisson_ratio =  nu
+    druckerprager_k = M
+    armstrong_frederick_ha = ha*Pa 
+    armstrong_frederick_cr = cr*Pa
+    isotropic_hardening_rate =  0*E
+    initial_confining_stress = 1*Pa;
+
+// define the node:
+add node # 1 at (0*m,0*m,1*m)  with 3 dofs;
+add node # 2 at (1*m,0*m,1*m)  with 3 dofs;
+add node # 3 at (1*m,1*m,1*m)  with 3 dofs;
+add node # 4 at (0*m,1*m,1*m)  with 3 dofs;
+
+add node # 5 at (0*m,0*m,0*m)  with 3 dofs;
+add node # 6 at (1*m,0*m,0*m)  with 3 dofs;
+add node # 7 at (1*m,1*m,0*m)  with 3 dofs;
+add node # 8 at (0*m,1*m,0*m)  with 3 dofs;
+
+// add equal degree of freedom in three directions
+add constraint equal dof with master node # 2 and slave node # 3 dof to constrain ux;
+add constraint equal dof with master node # 2 and slave node # 6 dof to constrain ux;
+add constraint equal dof with master node # 2 and slave node # 7 dof to constrain ux;
+
+add constraint equal dof with master node # 3 and slave node # 4 dof to constrain uy;
+add constraint equal dof with master node # 3 and slave node # 8 dof to constrain uy;
+add constraint equal dof with master node # 3 and slave node # 7 dof to constrain uy;
+
+add constraint equal dof with master node # 1 and slave node # 2 dof to constrain uz;
+add constraint equal dof with master node # 1 and slave node # 3 dof to constrain uz;
+add constraint equal dof with master node # 1 and slave node # 4 dof to constrain uz;
+
+// Define the element.
+add element # 1 type 8NodeBrickLT with nodes (1, 2,3 , 4, 5, 6,7, 8) use material # 1;
+
+new loading stage "confinement";
+fix node # 1 dofs ux uy;
+fix node # 2 dofs uy;
+fix node # 4 dofs ux;
+
+fix node # 5 dofs ux uy uz;
+fix node # 6 dofs uy uz;
+fix node # 7 dofs uz;
+fix node # 8 dofs ux uz;
+
+sigma_z = -3*p0/(1+2*K0);
+sigma_x = K0*sigma_z;
+sigma_y = K0*sigma_z;
+
+//Z-face
+add load # 1 to node # 1 type linear  Fz = sigma_z*m^2/4;
+add load # 2 to node # 2 type linear  Fz = sigma_z*m^2/4;
+add load # 3 to node # 3 type linear  Fz = sigma_z*m^2/4;
+add load # 4 to node # 4 type linear  Fz = sigma_z*m^2/4;
+
+//X-face
+add load # 5 to node # 2 type linear  Fx = sigma_x*m^2/4;
+add load # 6 to node # 6 type linear  Fx = sigma_x*m^2/4;
+add load # 7 to node # 7 type linear  Fx = sigma_x*m^2/4;
+add load # 8 to node # 3 type linear  Fx = sigma_x*m^2/4;
+
+add load # 9 to node # 3 type linear   Fy = sigma_y*m^2/4;
+add load # 10 to node # 7 type linear  Fy = sigma_y*m^2/4;
+add load # 11 to node # 8 type linear  Fy = sigma_y*m^2/4;
+add load # 12 to node # 4 type linear  Fy = sigma_y*m^2/4;
+
+Nsteps_static=100;
+define load factor increment 1/Nsteps_static;
+
+define solver  UMFPack;
+define convergence test Norm_Displacement_Increment  
+    tolerance =  1e-6
+    maximum_iterations =  100
+    verbose_level = 4;
+define algorithm Newton ;
+
+define NDMaterialLT constitutive integration algorithm Euler_One_Step
+    yield_function_relative_tolerance =  0.002
+    stress_relative_tolerance =  0.002
+    maximum_iterations = 1000;
+
+simulate Nsteps_static steps using static algorithm;
+
+
+new loading stage "shearing";
+compute reaction forces;
+add load # 13 to node # 1 type from_reactions;
+add load # 14 to node # 4 type from_reactions;
+
+free node # 1 dofs ux;
+free node # 4 dofs ux;
+fix node # 3 dofs uy;
+fix node # 6 dofs ux;
+fix node # 7 dofs ux uy;
+fix node # 8 dofs uy;
+
+add constraint equal dof with master node # 1 and slave node # 3 dof to constrain ux;
+add constraint equal dof with master node # 1 and slave node # 4 dof to constrain ux;
+add constraint equal dof with master node # 1 and slave node # 2 dof to constrain ux;
+remove constraint equaldof node # 6;
+remove constraint equaldof node # 7;
+remove constraint equaldof node # 8;
+
+n = 1;
+while(n<=1)
+{
+    add load # 14+n to node # n type path_time_series 
+     Fx = 170.*kN 
+     series_file = "path.txt";        
+    n+=1;
+}
+
+define load factor increment 1/Nsteps;
+
+define solver  UMFPack;
+define convergence test Norm_Displacement_Increment  
+    tolerance =  1e-5
+    maximum_iterations =  100
+    verbose_level = 4;
+define algorithm Newton ;
+
+define NDMaterialLT constitutive integration algorithm Euler_One_Step
+    yield_function_relative_tolerance =  0.0002
+    stress_relative_tolerance =  0.002
+    maximum_iterations = 1000;
+
+simulate Ncyc*Nsteps steps using static algorithm;
+
+bye;  

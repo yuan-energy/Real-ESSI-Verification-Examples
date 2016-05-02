@@ -1,0 +1,47 @@
+model name "beam_1element" ;
+// define the node coordinates
+add node #  1 at (   0.0*m ,    0.0*m,     0.0*m)  with 6 dofs;
+add node #  2 at (   1.0*m ,    0.0*m,     0.0*m)  with 6 dofs;
+// Geometry: width and height. Help the beam definition.
+b=0.2*m;
+h=0.2*m;
+I=b*h^3/12.0;
+// define the beam element
+add element # 1 type beam_elastic with nodes (1,2) 
+  cross_section =   b*h 
+  elastic_modulus =  1e9*N/m^2
+  shear_modulus =  5e8*N/m^2
+  torsion_Jx =  0.33*b*h^3
+  bending_Iy = I
+  bending_Iz = I
+  mass_density = 0*kg/m^3
+  xz_plane_vector = ( 1, 0, 1) 
+  joint_1_offset = (0*m, 0*m, 0*m) 
+  joint_2_offset = (0*m, 0*m, 0*m);
+// add boundary condition
+fix node #      1 dofs all;
+// axial loading
+new loading stage "axial";
+add load # 1 to node # 2 type linear Fx = 1*N;
+define load factor increment 1;
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+simulate 1 steps using static algorithm;
+// bending in one direction
+new loading stage "bending1";
+remove load # 1;
+add load # 2 to node # 2 type linear Fy = 1*N;
+define load factor increment 1;
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+simulate 1 steps using static algorithm;
+// bending in the other direction
+new loading stage "bending2";
+remove load # 2;
+add load # 3 to node # 2 type linear Fz = 1*N;
+define load factor increment 1;
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+simulate 1 steps using static algorithm;
+	
+bye;

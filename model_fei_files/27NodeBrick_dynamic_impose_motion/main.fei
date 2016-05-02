@@ -1,0 +1,931 @@
+// ESSI 
+// *********************  
+//  One simply dynamic ESSI example
+// ********************* 
+
+model name "dynamic_example";
+
+add material # 1 type linear_elastic_isotropic_3d_LT
+	mass_density    = 2000*kg/m^3
+	elastic_modulus = 504000000.00*Pa
+	poisson_ratio   = 0.4;
+
+//============================= Nodal  Coordinates  ====================================================
+add node No 1 at (0*m, 0*m, 0*m) with 3 dofs;
+add node No 2 at (0*m, 0.5*m, 0*m) with 3 dofs;
+add node No 3 at (0*m, 1*m, 0*m) with 3 dofs;
+add node No 4 at (0.5*m, 0*m, 0*m) with 3 dofs;
+add node No 5 at (0.5*m, 0.5*m, 0*m) with 3 dofs;
+add node No 6 at (0.5*m, 1*m, 0*m) with 3 dofs;
+add node No 7 at (1*m, 0*m, 0*m) with 3 dofs;
+add node No 8 at (1*m, 0.5*m, 0*m) with 3 dofs;
+add node No 9 at (1*m, 1*m, 0*m) with 3 dofs;
+add node No 10 at (0*m, 0*m, 0.5*m) with 3 dofs;
+add node No 11 at (0*m, 0.5*m, 0.5*m) with 3 dofs;
+add node No 12 at (0*m, 1*m, 0.5*m) with 3 dofs;
+add node No 13 at (0.5*m, 0*m, 0.5*m) with 3 dofs;
+add node No 14 at (0.5*m, 0.5*m, 0.5*m) with 3 dofs;
+add node No 15 at (0.5*m, 1*m, 0.5*m) with 3 dofs;
+add node No 16 at (1*m, 0*m, 0.5*m) with 3 dofs;
+add node No 17 at (1*m, 0.5*m, 0.5*m) with 3 dofs;
+add node No 18 at (1*m, 1*m, 0.5*m) with 3 dofs;
+add node No 19 at (0*m, 0*m, 1*m) with 3 dofs;
+add node No 20 at (0*m, 0.5*m, 1*m) with 3 dofs;
+add node No 21 at (0*m, 1*m, 1*m) with 3 dofs;
+add node No 22 at (0.5*m, 0*m, 1*m) with 3 dofs;
+add node No 23 at (0.5*m, 0.5*m, 1*m) with 3 dofs;
+add node No 24 at (0.5*m, 1*m, 1*m) with 3 dofs;
+add node No 25 at (1*m, 0*m, 1*m) with 3 dofs;
+add node No 26 at (1*m, 0.5*m, 1*m) with 3 dofs;
+add node No 27 at (1*m, 1*m, 1*m) with 3 dofs;
+add node No 28 at (0*m, 0*m, 1.5*m) with 3 dofs;
+add node No 29 at (0*m, 0.5*m, 1.5*m) with 3 dofs;
+add node No 30 at (0*m, 1*m, 1.5*m) with 3 dofs;
+add node No 31 at (0.5*m, 0*m, 1.5*m) with 3 dofs;
+add node No 32 at (0.5*m, 0.5*m, 1.5*m) with 3 dofs;
+add node No 33 at (0.5*m, 1*m, 1.5*m) with 3 dofs;
+add node No 34 at (1*m, 0*m, 1.5*m) with 3 dofs;
+add node No 35 at (1*m, 0.5*m, 1.5*m) with 3 dofs;
+add node No 36 at (1*m, 1*m, 1.5*m) with 3 dofs;
+add node No 37 at (0*m, 0*m, 2*m) with 3 dofs;
+add node No 38 at (0*m, 0.5*m, 2*m) with 3 dofs;
+add node No 39 at (0*m, 1*m, 2*m) with 3 dofs;
+add node No 40 at (0.5*m, 0*m, 2*m) with 3 dofs;
+add node No 41 at (0.5*m, 0.5*m, 2*m) with 3 dofs;
+add node No 42 at (0.5*m, 1*m, 2*m) with 3 dofs;
+add node No 43 at (1*m, 0*m, 2*m) with 3 dofs;
+add node No 44 at (1*m, 0.5*m, 2*m) with 3 dofs;
+add node No 45 at (1*m, 1*m, 2*m) with 3 dofs;
+add node No 46 at (0*m, 0*m, 2.5*m) with 3 dofs;
+add node No 47 at (0*m, 0.5*m, 2.5*m) with 3 dofs;
+add node No 48 at (0*m, 1*m, 2.5*m) with 3 dofs;
+add node No 49 at (0.5*m, 0*m, 2.5*m) with 3 dofs;
+add node No 50 at (0.5*m, 0.5*m, 2.5*m) with 3 dofs;
+add node No 51 at (0.5*m, 1*m, 2.5*m) with 3 dofs;
+add node No 52 at (1*m, 0*m, 2.5*m) with 3 dofs;
+add node No 53 at (1*m, 0.5*m, 2.5*m) with 3 dofs;
+add node No 54 at (1*m, 1*m, 2.5*m) with 3 dofs;
+add node No 55 at (0*m, 0*m, 3*m) with 3 dofs;
+add node No 56 at (0*m, 0.5*m, 3*m) with 3 dofs;
+add node No 57 at (0*m, 1*m, 3*m) with 3 dofs;
+add node No 58 at (0.5*m, 0*m, 3*m) with 3 dofs;
+add node No 59 at (0.5*m, 0.5*m, 3*m) with 3 dofs;
+add node No 60 at (0.5*m, 1*m, 3*m) with 3 dofs;
+add node No 61 at (1*m, 0*m, 3*m) with 3 dofs;
+add node No 62 at (1*m, 0.5*m, 3*m) with 3 dofs;
+add node No 63 at (1*m, 1*m, 3*m) with 3 dofs;
+add node No 64 at (0*m, 0*m, 3.5*m) with 3 dofs;
+add node No 65 at (0*m, 0.5*m, 3.5*m) with 3 dofs;
+add node No 66 at (0*m, 1*m, 3.5*m) with 3 dofs;
+add node No 67 at (0.5*m, 0*m, 3.5*m) with 3 dofs;
+add node No 68 at (0.5*m, 0.5*m, 3.5*m) with 3 dofs;
+add node No 69 at (0.5*m, 1*m, 3.5*m) with 3 dofs;
+add node No 70 at (1*m, 0*m, 3.5*m) with 3 dofs;
+add node No 71 at (1*m, 0.5*m, 3.5*m) with 3 dofs;
+add node No 72 at (1*m, 1*m, 3.5*m) with 3 dofs;
+add node No 73 at (0*m, 0*m, 4*m) with 3 dofs;
+add node No 74 at (0*m, 0.5*m, 4*m) with 3 dofs;
+add node No 75 at (0*m, 1*m, 4*m) with 3 dofs;
+add node No 76 at (0.5*m, 0*m, 4*m) with 3 dofs;
+add node No 77 at (0.5*m, 0.5*m, 4*m) with 3 dofs;
+add node No 78 at (0.5*m, 1*m, 4*m) with 3 dofs;
+add node No 79 at (1*m, 0*m, 4*m) with 3 dofs;
+add node No 80 at (1*m, 0.5*m, 4*m) with 3 dofs;
+add node No 81 at (1*m, 1*m, 4*m) with 3 dofs;
+add node No 82 at (0*m, 0*m, 4.5*m) with 3 dofs;
+add node No 83 at (0*m, 0.5*m, 4.5*m) with 3 dofs;
+add node No 84 at (0*m, 1*m, 4.5*m) with 3 dofs;
+add node No 85 at (0.5*m, 0*m, 4.5*m) with 3 dofs;
+add node No 86 at (0.5*m, 0.5*m, 4.5*m) with 3 dofs;
+add node No 87 at (0.5*m, 1*m, 4.5*m) with 3 dofs;
+add node No 88 at (1*m, 0*m, 4.5*m) with 3 dofs;
+add node No 89 at (1*m, 0.5*m, 4.5*m) with 3 dofs;
+add node No 90 at (1*m, 1*m, 4.5*m) with 3 dofs;
+add node No 91 at (0*m, 0*m, 5*m) with 3 dofs;
+add node No 92 at (0*m, 0.5*m, 5*m) with 3 dofs;
+add node No 93 at (0*m, 1*m, 5*m) with 3 dofs;
+add node No 94 at (0.5*m, 0*m, 5*m) with 3 dofs;
+add node No 95 at (0.5*m, 0.5*m, 5*m) with 3 dofs;
+add node No 96 at (0.5*m, 1*m, 5*m) with 3 dofs;
+add node No 97 at (1*m, 0*m, 5*m) with 3 dofs;
+add node No 98 at (1*m, 0.5*m, 5*m) with 3 dofs;
+add node No 99 at (1*m, 1*m, 5*m) with 3 dofs;
+add node No 100 at (0*m, 0*m, 5.5*m) with 3 dofs;
+add node No 101 at (0*m, 0.5*m, 5.5*m) with 3 dofs;
+add node No 102 at (0*m, 1*m, 5.5*m) with 3 dofs;
+add node No 103 at (0.5*m, 0*m, 5.5*m) with 3 dofs;
+add node No 104 at (0.5*m, 0.5*m, 5.5*m) with 3 dofs;
+add node No 105 at (0.5*m, 1*m, 5.5*m) with 3 dofs;
+add node No 106 at (1*m, 0*m, 5.5*m) with 3 dofs;
+add node No 107 at (1*m, 0.5*m, 5.5*m) with 3 dofs;
+add node No 108 at (1*m, 1*m, 5.5*m) with 3 dofs;
+add node No 109 at (0*m, 0*m, 6*m) with 3 dofs;
+add node No 110 at (0*m, 0.5*m, 6*m) with 3 dofs;
+add node No 111 at (0*m, 1*m, 6*m) with 3 dofs;
+add node No 112 at (0.5*m, 0*m, 6*m) with 3 dofs;
+add node No 113 at (0.5*m, 0.5*m, 6*m) with 3 dofs;
+add node No 114 at (0.5*m, 1*m, 6*m) with 3 dofs;
+add node No 115 at (1*m, 0*m, 6*m) with 3 dofs;
+add node No 116 at (1*m, 0.5*m, 6*m) with 3 dofs;
+add node No 117 at (1*m, 1*m, 6*m) with 3 dofs;
+add node No 118 at (0*m, 0*m, 6.5*m) with 3 dofs;
+add node No 119 at (0*m, 0.5*m, 6.5*m) with 3 dofs;
+add node No 120 at (0*m, 1*m, 6.5*m) with 3 dofs;
+add node No 121 at (0.5*m, 0*m, 6.5*m) with 3 dofs;
+add node No 122 at (0.5*m, 0.5*m, 6.5*m) with 3 dofs;
+add node No 123 at (0.5*m, 1*m, 6.5*m) with 3 dofs;
+add node No 124 at (1*m, 0*m, 6.5*m) with 3 dofs;
+add node No 125 at (1*m, 0.5*m, 6.5*m) with 3 dofs;
+add node No 126 at (1*m, 1*m, 6.5*m) with 3 dofs;
+add node No 127 at (0*m, 0*m, 7*m) with 3 dofs;
+add node No 128 at (0*m, 0.5*m, 7*m) with 3 dofs;
+add node No 129 at (0*m, 1*m, 7*m) with 3 dofs;
+add node No 130 at (0.5*m, 0*m, 7*m) with 3 dofs;
+add node No 131 at (0.5*m, 0.5*m, 7*m) with 3 dofs;
+add node No 132 at (0.5*m, 1*m, 7*m) with 3 dofs;
+add node No 133 at (1*m, 0*m, 7*m) with 3 dofs;
+add node No 134 at (1*m, 0.5*m, 7*m) with 3 dofs;
+add node No 135 at (1*m, 1*m, 7*m) with 3 dofs;
+add node No 136 at (0*m, 0*m, 7.5*m) with 3 dofs;
+add node No 137 at (0*m, 0.5*m, 7.5*m) with 3 dofs;
+add node No 138 at (0*m, 1*m, 7.5*m) with 3 dofs;
+add node No 139 at (0.5*m, 0*m, 7.5*m) with 3 dofs;
+add node No 140 at (0.5*m, 0.5*m, 7.5*m) with 3 dofs;
+add node No 141 at (0.5*m, 1*m, 7.5*m) with 3 dofs;
+add node No 142 at (1*m, 0*m, 7.5*m) with 3 dofs;
+add node No 143 at (1*m, 0.5*m, 7.5*m) with 3 dofs;
+add node No 144 at (1*m, 1*m, 7.5*m) with 3 dofs;
+add node No 145 at (0*m, 0*m, 8*m) with 3 dofs;
+add node No 146 at (0*m, 0.5*m, 8*m) with 3 dofs;
+add node No 147 at (0*m, 1*m, 8*m) with 3 dofs;
+add node No 148 at (0.5*m, 0*m, 8*m) with 3 dofs;
+add node No 149 at (0.5*m, 0.5*m, 8*m) with 3 dofs;
+add node No 150 at (0.5*m, 1*m, 8*m) with 3 dofs;
+add node No 151 at (1*m, 0*m, 8*m) with 3 dofs;
+add node No 152 at (1*m, 0.5*m, 8*m) with 3 dofs;
+add node No 153 at (1*m, 1*m, 8*m) with 3 dofs;
+add node No 154 at (0*m, 0*m, 8.5*m) with 3 dofs;
+add node No 155 at (0*m, 0.5*m, 8.5*m) with 3 dofs;
+add node No 156 at (0*m, 1*m, 8.5*m) with 3 dofs;
+add node No 157 at (0.5*m, 0*m, 8.5*m) with 3 dofs;
+add node No 158 at (0.5*m, 0.5*m, 8.5*m) with 3 dofs;
+add node No 159 at (0.5*m, 1*m, 8.5*m) with 3 dofs;
+add node No 160 at (1*m, 0*m, 8.5*m) with 3 dofs;
+add node No 161 at (1*m, 0.5*m, 8.5*m) with 3 dofs;
+add node No 162 at (1*m, 1*m, 8.5*m) with 3 dofs;
+add node No 163 at (0*m, 0*m, 9*m) with 3 dofs;
+add node No 164 at (0*m, 0.5*m, 9*m) with 3 dofs;
+add node No 165 at (0*m, 1*m, 9*m) with 3 dofs;
+add node No 166 at (0.5*m, 0*m, 9*m) with 3 dofs;
+add node No 167 at (0.5*m, 0.5*m, 9*m) with 3 dofs;
+add node No 168 at (0.5*m, 1*m, 9*m) with 3 dofs;
+add node No 169 at (1*m, 0*m, 9*m) with 3 dofs;
+add node No 170 at (1*m, 0.5*m, 9*m) with 3 dofs;
+add node No 171 at (1*m, 1*m, 9*m) with 3 dofs;
+add node No 172 at (0*m, 0*m, 9.5*m) with 3 dofs;
+add node No 173 at (0*m, 0.5*m, 9.5*m) with 3 dofs;
+add node No 174 at (0*m, 1*m, 9.5*m) with 3 dofs;
+add node No 175 at (0.5*m, 0*m, 9.5*m) with 3 dofs;
+add node No 176 at (0.5*m, 0.5*m, 9.5*m) with 3 dofs;
+add node No 177 at (0.5*m, 1*m, 9.5*m) with 3 dofs;
+add node No 178 at (1*m, 0*m, 9.5*m) with 3 dofs;
+add node No 179 at (1*m, 0.5*m, 9.5*m) with 3 dofs;
+add node No 180 at (1*m, 1*m, 9.5*m) with 3 dofs;
+add node No 181 at (0*m, 0*m, 10*m) with 3 dofs;
+add node No 182 at (0*m, 0.5*m, 10*m) with 3 dofs;
+add node No 183 at (0*m, 1*m, 10*m) with 3 dofs;
+add node No 184 at (0.5*m, 0*m, 10*m) with 3 dofs;
+add node No 185 at (0.5*m, 0.5*m, 10*m) with 3 dofs;
+add node No 186 at (0.5*m, 1*m, 10*m) with 3 dofs;
+add node No 187 at (1*m, 0*m, 10*m) with 3 dofs;
+add node No 188 at (1*m, 0.5*m, 10*m) with 3 dofs;
+add node No 189 at (1*m, 1*m, 10*m) with 3 dofs;
+add node No 190 at (0*m, 0*m, 10.5*m) with 3 dofs;
+add node No 191 at (0*m, 0.5*m, 10.5*m) with 3 dofs;
+add node No 192 at (0*m, 1*m, 10.5*m) with 3 dofs;
+add node No 193 at (0.5*m, 0*m, 10.5*m) with 3 dofs;
+add node No 194 at (0.5*m, 0.5*m, 10.5*m) with 3 dofs;
+add node No 195 at (0.5*m, 1*m, 10.5*m) with 3 dofs;
+add node No 196 at (1*m, 0*m, 10.5*m) with 3 dofs;
+add node No 197 at (1*m, 0.5*m, 10.5*m) with 3 dofs;
+add node No 198 at (1*m, 1*m, 10.5*m) with 3 dofs;
+add node No 199 at (0*m, 0*m, 11*m) with 3 dofs;
+add node No 200 at (0*m, 0.5*m, 11*m) with 3 dofs;
+add node No 201 at (0*m, 1*m, 11*m) with 3 dofs;
+add node No 202 at (0.5*m, 0*m, 11*m) with 3 dofs;
+add node No 203 at (0.5*m, 0.5*m, 11*m) with 3 dofs;
+add node No 204 at (0.5*m, 1*m, 11*m) with 3 dofs;
+add node No 205 at (1*m, 0*m, 11*m) with 3 dofs;
+add node No 206 at (1*m, 0.5*m, 11*m) with 3 dofs;
+add node No 207 at (1*m, 1*m, 11*m) with 3 dofs;
+add node No 208 at (0*m, 0*m, 11.5*m) with 3 dofs;
+add node No 209 at (0*m, 0.5*m, 11.5*m) with 3 dofs;
+add node No 210 at (0*m, 1*m, 11.5*m) with 3 dofs;
+add node No 211 at (0.5*m, 0*m, 11.5*m) with 3 dofs;
+add node No 212 at (0.5*m, 0.5*m, 11.5*m) with 3 dofs;
+add node No 213 at (0.5*m, 1*m, 11.5*m) with 3 dofs;
+add node No 214 at (1*m, 0*m, 11.5*m) with 3 dofs;
+add node No 215 at (1*m, 0.5*m, 11.5*m) with 3 dofs;
+add node No 216 at (1*m, 1*m, 11.5*m) with 3 dofs;
+add node No 217 at (0*m, 0*m, 12*m) with 3 dofs;
+add node No 218 at (0*m, 0.5*m, 12*m) with 3 dofs;
+add node No 219 at (0*m, 1*m, 12*m) with 3 dofs;
+add node No 220 at (0.5*m, 0*m, 12*m) with 3 dofs;
+add node No 221 at (0.5*m, 0.5*m, 12*m) with 3 dofs;
+add node No 222 at (0.5*m, 1*m, 12*m) with 3 dofs;
+add node No 223 at (1*m, 0*m, 12*m) with 3 dofs;
+add node No 224 at (1*m, 0.5*m, 12*m) with 3 dofs;
+add node No 225 at (1*m, 1*m, 12*m) with 3 dofs;
+add node No 226 at (0*m, 0*m, 12.5*m) with 3 dofs;
+add node No 227 at (0*m, 0.5*m, 12.5*m) with 3 dofs;
+add node No 228 at (0*m, 1*m, 12.5*m) with 3 dofs;
+add node No 229 at (0.5*m, 0*m, 12.5*m) with 3 dofs;
+add node No 230 at (0.5*m, 0.5*m, 12.5*m) with 3 dofs;
+add node No 231 at (0.5*m, 1*m, 12.5*m) with 3 dofs;
+add node No 232 at (1*m, 0*m, 12.5*m) with 3 dofs;
+add node No 233 at (1*m, 0.5*m, 12.5*m) with 3 dofs;
+add node No 234 at (1*m, 1*m, 12.5*m) with 3 dofs;
+add node No 235 at (0*m, 0*m, 13*m) with 3 dofs;
+add node No 236 at (0*m, 0.5*m, 13*m) with 3 dofs;
+add node No 237 at (0*m, 1*m, 13*m) with 3 dofs;
+add node No 238 at (0.5*m, 0*m, 13*m) with 3 dofs;
+add node No 239 at (0.5*m, 0.5*m, 13*m) with 3 dofs;
+add node No 240 at (0.5*m, 1*m, 13*m) with 3 dofs;
+add node No 241 at (1*m, 0*m, 13*m) with 3 dofs;
+add node No 242 at (1*m, 0.5*m, 13*m) with 3 dofs;
+add node No 243 at (1*m, 1*m, 13*m) with 3 dofs;
+add node No 244 at (0*m, 0*m, 13.5*m) with 3 dofs;
+add node No 245 at (0*m, 0.5*m, 13.5*m) with 3 dofs;
+add node No 246 at (0*m, 1*m, 13.5*m) with 3 dofs;
+add node No 247 at (0.5*m, 0*m, 13.5*m) with 3 dofs;
+add node No 248 at (0.5*m, 0.5*m, 13.5*m) with 3 dofs;
+add node No 249 at (0.5*m, 1*m, 13.5*m) with 3 dofs;
+add node No 250 at (1*m, 0*m, 13.5*m) with 3 dofs;
+add node No 251 at (1*m, 0.5*m, 13.5*m) with 3 dofs;
+add node No 252 at (1*m, 1*m, 13.5*m) with 3 dofs;
+add node No 253 at (0*m, 0*m, 14*m) with 3 dofs;
+add node No 254 at (0*m, 0.5*m, 14*m) with 3 dofs;
+add node No 255 at (0*m, 1*m, 14*m) with 3 dofs;
+add node No 256 at (0.5*m, 0*m, 14*m) with 3 dofs;
+add node No 257 at (0.5*m, 0.5*m, 14*m) with 3 dofs;
+add node No 258 at (0.5*m, 1*m, 14*m) with 3 dofs;
+add node No 259 at (1*m, 0*m, 14*m) with 3 dofs;
+add node No 260 at (1*m, 0.5*m, 14*m) with 3 dofs;
+add node No 261 at (1*m, 1*m, 14*m) with 3 dofs;
+add node No 262 at (0*m, 0*m, 14.5*m) with 3 dofs;
+add node No 263 at (0*m, 0.5*m, 14.5*m) with 3 dofs;
+add node No 264 at (0*m, 1*m, 14.5*m) with 3 dofs;
+add node No 265 at (0.5*m, 0*m, 14.5*m) with 3 dofs;
+add node No 266 at (0.5*m, 0.5*m, 14.5*m) with 3 dofs;
+add node No 267 at (0.5*m, 1*m, 14.5*m) with 3 dofs;
+add node No 268 at (1*m, 0*m, 14.5*m) with 3 dofs;
+add node No 269 at (1*m, 0.5*m, 14.5*m) with 3 dofs;
+add node No 270 at (1*m, 1*m, 14.5*m) with 3 dofs;
+add node No 271 at (0*m, 0*m, 15*m) with 3 dofs;
+add node No 272 at (0*m, 0.5*m, 15*m) with 3 dofs;
+add node No 273 at (0*m, 1*m, 15*m) with 3 dofs;
+add node No 274 at (0.5*m, 0*m, 15*m) with 3 dofs;
+add node No 275 at (0.5*m, 0.5*m, 15*m) with 3 dofs;
+add node No 276 at (0.5*m, 1*m, 15*m) with 3 dofs;
+add node No 277 at (1*m, 0*m, 15*m) with 3 dofs;
+add node No 278 at (1*m, 0.5*m, 15*m) with 3 dofs;
+add node No 279 at (1*m, 1*m, 15*m) with 3 dofs;
+add node No 280 at (0*m, 0*m, 15.5*m) with 3 dofs;
+add node No 281 at (0*m, 0.5*m, 15.5*m) with 3 dofs;
+add node No 282 at (0*m, 1*m, 15.5*m) with 3 dofs;
+add node No 283 at (0.5*m, 0*m, 15.5*m) with 3 dofs;
+add node No 284 at (0.5*m, 0.5*m, 15.5*m) with 3 dofs;
+add node No 285 at (0.5*m, 1*m, 15.5*m) with 3 dofs;
+add node No 286 at (1*m, 0*m, 15.5*m) with 3 dofs;
+add node No 287 at (1*m, 0.5*m, 15.5*m) with 3 dofs;
+add node No 288 at (1*m, 1*m, 15.5*m) with 3 dofs;
+add node No 289 at (0*m, 0*m, 16*m) with 3 dofs;
+add node No 290 at (0*m, 0.5*m, 16*m) with 3 dofs;
+add node No 291 at (0*m, 1*m, 16*m) with 3 dofs;
+add node No 292 at (0.5*m, 0*m, 16*m) with 3 dofs;
+add node No 293 at (0.5*m, 0.5*m, 16*m) with 3 dofs;
+add node No 294 at (0.5*m, 1*m, 16*m) with 3 dofs;
+add node No 295 at (1*m, 0*m, 16*m) with 3 dofs;
+add node No 296 at (1*m, 0.5*m, 16*m) with 3 dofs;
+add node No 297 at (1*m, 1*m, 16*m) with 3 dofs;
+add node No 298 at (0*m, 0*m, 16.5*m) with 3 dofs;
+add node No 299 at (0*m, 0.5*m, 16.5*m) with 3 dofs;
+add node No 300 at (0*m, 1*m, 16.5*m) with 3 dofs;
+add node No 301 at (0.5*m, 0*m, 16.5*m) with 3 dofs;
+add node No 302 at (0.5*m, 0.5*m, 16.5*m) with 3 dofs;
+add node No 303 at (0.5*m, 1*m, 16.5*m) with 3 dofs;
+add node No 304 at (1*m, 0*m, 16.5*m) with 3 dofs;
+add node No 305 at (1*m, 0.5*m, 16.5*m) with 3 dofs;
+add node No 306 at (1*m, 1*m, 16.5*m) with 3 dofs;
+add node No 307 at (0*m, 0*m, 17*m) with 3 dofs;
+add node No 308 at (0*m, 0.5*m, 17*m) with 3 dofs;
+add node No 309 at (0*m, 1*m, 17*m) with 3 dofs;
+add node No 310 at (0.5*m, 0*m, 17*m) with 3 dofs;
+add node No 311 at (0.5*m, 0.5*m, 17*m) with 3 dofs;
+add node No 312 at (0.5*m, 1*m, 17*m) with 3 dofs;
+add node No 313 at (1*m, 0*m, 17*m) with 3 dofs;
+add node No 314 at (1*m, 0.5*m, 17*m) with 3 dofs;
+add node No 315 at (1*m, 1*m, 17*m) with 3 dofs;
+add node No 316 at (0*m, 0*m, 17.5*m) with 3 dofs;
+add node No 317 at (0*m, 0.5*m, 17.5*m) with 3 dofs;
+add node No 318 at (0*m, 1*m, 17.5*m) with 3 dofs;
+add node No 319 at (0.5*m, 0*m, 17.5*m) with 3 dofs;
+add node No 320 at (0.5*m, 0.5*m, 17.5*m) with 3 dofs;
+add node No 321 at (0.5*m, 1*m, 17.5*m) with 3 dofs;
+add node No 322 at (1*m, 0*m, 17.5*m) with 3 dofs;
+add node No 323 at (1*m, 0.5*m, 17.5*m) with 3 dofs;
+add node No 324 at (1*m, 1*m, 17.5*m) with 3 dofs;
+add node No 325 at (0*m, 0*m, 18*m) with 3 dofs;
+add node No 326 at (0*m, 0.5*m, 18*m) with 3 dofs;
+add node No 327 at (0*m, 1*m, 18*m) with 3 dofs;
+add node No 328 at (0.5*m, 0*m, 18*m) with 3 dofs;
+add node No 329 at (0.5*m, 0.5*m, 18*m) with 3 dofs;
+add node No 330 at (0.5*m, 1*m, 18*m) with 3 dofs;
+add node No 331 at (1*m, 0*m, 18*m) with 3 dofs;
+add node No 332 at (1*m, 0.5*m, 18*m) with 3 dofs;
+add node No 333 at (1*m, 1*m, 18*m) with 3 dofs;
+add node No 334 at (0*m, 0*m, 18.5*m) with 3 dofs;
+add node No 335 at (0*m, 0.5*m, 18.5*m) with 3 dofs;
+add node No 336 at (0*m, 1*m, 18.5*m) with 3 dofs;
+add node No 337 at (0.5*m, 0*m, 18.5*m) with 3 dofs;
+add node No 338 at (0.5*m, 0.5*m, 18.5*m) with 3 dofs;
+add node No 339 at (0.5*m, 1*m, 18.5*m) with 3 dofs;
+add node No 340 at (1*m, 0*m, 18.5*m) with 3 dofs;
+add node No 341 at (1*m, 0.5*m, 18.5*m) with 3 dofs;
+add node No 342 at (1*m, 1*m, 18.5*m) with 3 dofs;
+add node No 343 at (0*m, 0*m, 19*m) with 3 dofs;
+add node No 344 at (0*m, 0.5*m, 19*m) with 3 dofs;
+add node No 345 at (0*m, 1*m, 19*m) with 3 dofs;
+add node No 346 at (0.5*m, 0*m, 19*m) with 3 dofs;
+add node No 347 at (0.5*m, 0.5*m, 19*m) with 3 dofs;
+add node No 348 at (0.5*m, 1*m, 19*m) with 3 dofs;
+add node No 349 at (1*m, 0*m, 19*m) with 3 dofs;
+add node No 350 at (1*m, 0.5*m, 19*m) with 3 dofs;
+add node No 351 at (1*m, 1*m, 19*m) with 3 dofs;
+add node No 352 at (0*m, 0*m, 19.5*m) with 3 dofs;
+add node No 353 at (0*m, 0.5*m, 19.5*m) with 3 dofs;
+add node No 354 at (0*m, 1*m, 19.5*m) with 3 dofs;
+add node No 355 at (0.5*m, 0*m, 19.5*m) with 3 dofs;
+add node No 356 at (0.5*m, 0.5*m, 19.5*m) with 3 dofs;
+add node No 357 at (0.5*m, 1*m, 19.5*m) with 3 dofs;
+add node No 358 at (1*m, 0*m, 19.5*m) with 3 dofs;
+add node No 359 at (1*m, 0.5*m, 19.5*m) with 3 dofs;
+add node No 360 at (1*m, 1*m, 19.5*m) with 3 dofs;
+add node No 361 at (0*m, 0*m, 20*m) with 3 dofs;
+add node No 362 at (0*m, 0.5*m, 20*m) with 3 dofs;
+add node No 363 at (0*m, 1*m, 20*m) with 3 dofs;
+add node No 364 at (0.5*m, 0*m, 20*m) with 3 dofs;
+add node No 365 at (0.5*m, 0.5*m, 20*m) with 3 dofs;
+add node No 366 at (0.5*m, 1*m, 20*m) with 3 dofs;
+add node No 367 at (1*m, 0*m, 20*m) with 3 dofs;
+add node No 368 at (1*m, 0.5*m, 20*m) with 3 dofs;
+add node No 369 at (1*m, 1*m, 20*m) with 3 dofs;
+
+
+// ********************* 
+// add elements
+// ********************* 
+
+add element # 1 type 27NodeBrickLT with nodes (27,21,19,25,9,3,1,7,24,20,22,26,6,2,4,8,18,12,10,16,14,15,11,13,17,23,5) use material # 1 ;
+add element # 2 type 27NodeBrickLT with nodes (45,39,37,43,27,21,19,25,42,38,40,44,24,20,22,26,36,30,28,34,32,33,29,31,35,41,23) use material # 1 ;
+add element # 3 type 27NodeBrickLT with nodes (63,57,55,61,45,39,37,43,60,56,58,62,42,38,40,44,54,48,46,52,50,51,47,49,53,59,41) use material # 1 ;
+add element # 4 type 27NodeBrickLT with nodes (81,75,73,79,63,57,55,61,78,74,76,80,60,56,58,62,72,66,64,70,68,69,65,67,71,77,59) use material # 1 ;
+add element # 5 type 27NodeBrickLT with nodes (99,93,91,97,81,75,73,79,96,92,94,98,78,74,76,80,90,84,82,88,86,87,83,85,89,95,77) use material # 1 ;
+add element # 6 type 27NodeBrickLT with nodes (117,111,109,115,99,93,91,97,114,110,112,116,96,92,94,98,108,102,100,106,104,105,101,103,107,113,95) use material # 1 ;
+add element # 7 type 27NodeBrickLT with nodes (135,129,127,133,117,111,109,115,132,128,130,134,114,110,112,116,126,120,118,124,122,123,119,121,125,131,113) use material # 1 ;
+add element # 8 type 27NodeBrickLT with nodes (153,147,145,151,135,129,127,133,150,146,148,152,132,128,130,134,144,138,136,142,140,141,137,139,143,149,131) use material # 1 ;
+add element # 9 type 27NodeBrickLT with nodes (171,165,163,169,153,147,145,151,168,164,166,170,150,146,148,152,162,156,154,160,158,159,155,157,161,167,149) use material # 1 ;
+add element # 10 type 27NodeBrickLT with nodes (189,183,181,187,171,165,163,169,186,182,184,188,168,164,166,170,180,174,172,178,176,177,173,175,179,185,167) use material # 1 ;
+add element # 11 type 27NodeBrickLT with nodes (207,201,199,205,189,183,181,187,204,200,202,206,186,182,184,188,198,192,190,196,194,195,191,193,197,203,185) use material # 1 ;
+add element # 12 type 27NodeBrickLT with nodes (225,219,217,223,207,201,199,205,222,218,220,224,204,200,202,206,216,210,208,214,212,213,209,211,215,221,203) use material # 1 ;
+add element # 13 type 27NodeBrickLT with nodes (243,237,235,241,225,219,217,223,240,236,238,242,222,218,220,224,234,228,226,232,230,231,227,229,233,239,221) use material # 1 ;
+add element # 14 type 27NodeBrickLT with nodes (261,255,253,259,243,237,235,241,258,254,256,260,240,236,238,242,252,246,244,250,248,249,245,247,251,257,239) use material # 1 ;
+add element # 15 type 27NodeBrickLT with nodes (279,273,271,277,261,255,253,259,276,272,274,278,258,254,256,260,270,264,262,268,266,267,263,265,269,275,257) use material # 1 ;
+add element # 16 type 27NodeBrickLT with nodes (297,291,289,295,279,273,271,277,294,290,292,296,276,272,274,278,288,282,280,286,284,285,281,283,287,293,275) use material # 1 ;
+add element # 17 type 27NodeBrickLT with nodes (315,309,307,313,297,291,289,295,312,308,310,314,294,290,292,296,306,300,298,304,302,303,299,301,305,311,293) use material # 1 ;
+add element # 18 type 27NodeBrickLT with nodes (333,327,325,331,315,309,307,313,330,326,328,332,312,308,310,314,324,318,316,322,320,321,317,319,323,329,311) use material # 1 ;
+add element # 19 type 27NodeBrickLT with nodes (351,345,343,349,333,327,325,331,348,344,346,350,330,326,328,332,342,336,334,340,338,339,335,337,341,347,329) use material # 1 ;
+add element # 20 type 27NodeBrickLT with nodes (369,363,361,367,351,345,343,349,366,362,364,368,348,344,346,350,360,354,352,358,356,357,353,355,359,365,347) use material # 1 ;
+
+
+// ********************* 
+// add self_weight 
+// ********************* 
+add acceleration field # 1 ax = 0*g ay = 0*g az = -1*g ;
+
+add load # 1 to element # 1 type self_weight use acceleration field # 1;
+add load # 2 to element # 2 type self_weight use acceleration field # 1;
+add load # 3 to element # 3 type self_weight use acceleration field # 1;
+add load # 4 to element # 4 type self_weight use acceleration field # 1;
+add load # 5 to element # 5 type self_weight use acceleration field # 1;
+add load # 6 to element # 6 type self_weight use acceleration field # 1;
+add load # 7 to element # 7 type self_weight use acceleration field # 1;
+add load # 8 to element # 8 type self_weight use acceleration field # 1;
+add load # 9 to element # 9 type self_weight use acceleration field # 1;
+add load # 10 to element # 10 type self_weight use acceleration field # 1;
+add load # 11 to element # 11 type self_weight use acceleration field # 1;
+add load # 12 to element # 12 type self_weight use acceleration field # 1;
+add load # 13 to element # 13 type self_weight use acceleration field # 1;
+add load # 14 to element # 14 type self_weight use acceleration field # 1;
+add load # 15 to element # 15 type self_weight use acceleration field # 1;
+add load # 16 to element # 16 type self_weight use acceleration field # 1;
+add load # 17 to element # 17 type self_weight use acceleration field # 1;
+add load # 18 to element # 18 type self_weight use acceleration field # 1;
+add load # 19 to element # 19 type self_weight use acceleration field # 1;
+add load # 20 to element # 20 type self_weight use acceleration field # 1;
+
+
+// ********************* 
+// add boundary condition
+// ********************* 
+fix node No 1 dofs    uy uz;
+fix node No 2 dofs    uy uz;
+fix node No 3 dofs    uy uz;
+fix node No 4 dofs    uy uz;
+fix node No 5 dofs    uy uz;
+fix node No 6 dofs    uy uz;
+fix node No 7 dofs    uy uz;
+fix node No 8 dofs    uy uz;
+fix node No 9 dofs    uy uz;
+fix node No 10 dofs    uy uz;
+fix node No 11 dofs    uy uz;
+fix node No 12 dofs    uy uz;
+fix node No 13 dofs    uy uz;
+fix node No 14 dofs    uy uz;
+fix node No 15 dofs    uy uz;
+fix node No 16 dofs    uy uz;
+fix node No 17 dofs    uy uz;
+fix node No 18 dofs    uy uz;
+fix node No 19 dofs    uy uz;
+fix node No 20 dofs    uy uz;
+fix node No 21 dofs    uy uz;
+fix node No 22 dofs    uy uz;
+fix node No 23 dofs    uy uz;
+fix node No 24 dofs    uy uz;
+fix node No 25 dofs    uy uz;
+fix node No 26 dofs    uy uz;
+fix node No 27 dofs    uy uz;
+fix node No 28 dofs    uy uz;
+fix node No 29 dofs    uy uz;
+fix node No 30 dofs    uy uz;
+fix node No 31 dofs    uy uz;
+fix node No 32 dofs    uy uz;
+fix node No 33 dofs    uy uz;
+fix node No 34 dofs    uy uz;
+fix node No 35 dofs    uy uz;
+fix node No 36 dofs    uy uz;
+fix node No 37 dofs    uy uz;
+fix node No 38 dofs    uy uz;
+fix node No 39 dofs    uy uz;
+fix node No 40 dofs    uy uz;
+fix node No 41 dofs    uy uz;
+fix node No 42 dofs    uy uz;
+fix node No 43 dofs    uy uz;
+fix node No 44 dofs    uy uz;
+fix node No 45 dofs    uy uz;
+fix node No 46 dofs    uy uz;
+fix node No 47 dofs    uy uz;
+fix node No 48 dofs    uy uz;
+fix node No 49 dofs    uy uz;
+fix node No 50 dofs    uy uz;
+fix node No 51 dofs    uy uz;
+fix node No 52 dofs    uy uz;
+fix node No 53 dofs    uy uz;
+fix node No 54 dofs    uy uz;
+fix node No 55 dofs    uy uz;
+fix node No 56 dofs    uy uz;
+fix node No 57 dofs    uy uz;
+fix node No 58 dofs    uy uz;
+fix node No 59 dofs    uy uz;
+fix node No 60 dofs    uy uz;
+fix node No 61 dofs    uy uz;
+fix node No 62 dofs    uy uz;
+fix node No 63 dofs    uy uz;
+fix node No 64 dofs    uy uz;
+fix node No 65 dofs    uy uz;
+fix node No 66 dofs    uy uz;
+fix node No 67 dofs    uy uz;
+fix node No 68 dofs    uy uz;
+fix node No 69 dofs    uy uz;
+fix node No 70 dofs    uy uz;
+fix node No 71 dofs    uy uz;
+fix node No 72 dofs    uy uz;
+fix node No 73 dofs    uy uz;
+fix node No 74 dofs    uy uz;
+fix node No 75 dofs    uy uz;
+fix node No 76 dofs    uy uz;
+fix node No 77 dofs    uy uz;
+fix node No 78 dofs    uy uz;
+fix node No 79 dofs    uy uz;
+fix node No 80 dofs    uy uz;
+fix node No 81 dofs    uy uz;
+fix node No 82 dofs    uy uz;
+fix node No 83 dofs    uy uz;
+fix node No 84 dofs    uy uz;
+fix node No 85 dofs    uy uz;
+fix node No 86 dofs    uy uz;
+fix node No 87 dofs    uy uz;
+fix node No 88 dofs    uy uz;
+fix node No 89 dofs    uy uz;
+fix node No 90 dofs    uy uz;
+fix node No 91 dofs    uy uz;
+fix node No 92 dofs    uy uz;
+fix node No 93 dofs    uy uz;
+fix node No 94 dofs    uy uz;
+fix node No 95 dofs    uy uz;
+fix node No 96 dofs    uy uz;
+fix node No 97 dofs    uy uz;
+fix node No 98 dofs    uy uz;
+fix node No 99 dofs    uy uz;
+fix node No 100 dofs    uy uz;
+fix node No 101 dofs    uy uz;
+fix node No 102 dofs    uy uz;
+fix node No 103 dofs    uy uz;
+fix node No 104 dofs    uy uz;
+fix node No 105 dofs    uy uz;
+fix node No 106 dofs    uy uz;
+fix node No 107 dofs    uy uz;
+fix node No 108 dofs    uy uz;
+fix node No 109 dofs    uy uz;
+fix node No 110 dofs    uy uz;
+fix node No 111 dofs    uy uz;
+fix node No 112 dofs    uy uz;
+fix node No 113 dofs    uy uz;
+fix node No 114 dofs    uy uz;
+fix node No 115 dofs    uy uz;
+fix node No 116 dofs    uy uz;
+fix node No 117 dofs    uy uz;
+fix node No 118 dofs    uy uz;
+fix node No 119 dofs    uy uz;
+fix node No 120 dofs    uy uz;
+fix node No 121 dofs    uy uz;
+fix node No 122 dofs    uy uz;
+fix node No 123 dofs    uy uz;
+fix node No 124 dofs    uy uz;
+fix node No 125 dofs    uy uz;
+fix node No 126 dofs    uy uz;
+fix node No 127 dofs    uy uz;
+fix node No 128 dofs    uy uz;
+fix node No 129 dofs    uy uz;
+fix node No 130 dofs    uy uz;
+fix node No 131 dofs    uy uz;
+fix node No 132 dofs    uy uz;
+fix node No 133 dofs    uy uz;
+fix node No 134 dofs    uy uz;
+fix node No 135 dofs    uy uz;
+fix node No 136 dofs    uy uz;
+fix node No 137 dofs    uy uz;
+fix node No 138 dofs    uy uz;
+fix node No 139 dofs    uy uz;
+fix node No 140 dofs    uy uz;
+fix node No 141 dofs    uy uz;
+fix node No 142 dofs    uy uz;
+fix node No 143 dofs    uy uz;
+fix node No 144 dofs    uy uz;
+fix node No 145 dofs    uy uz;
+fix node No 146 dofs    uy uz;
+fix node No 147 dofs    uy uz;
+fix node No 148 dofs    uy uz;
+fix node No 149 dofs    uy uz;
+fix node No 150 dofs    uy uz;
+fix node No 151 dofs    uy uz;
+fix node No 152 dofs    uy uz;
+fix node No 153 dofs    uy uz;
+fix node No 154 dofs    uy uz;
+fix node No 155 dofs    uy uz;
+fix node No 156 dofs    uy uz;
+fix node No 157 dofs    uy uz;
+fix node No 158 dofs    uy uz;
+fix node No 159 dofs    uy uz;
+fix node No 160 dofs    uy uz;
+fix node No 161 dofs    uy uz;
+fix node No 162 dofs    uy uz;
+fix node No 163 dofs    uy uz;
+fix node No 164 dofs    uy uz;
+fix node No 165 dofs    uy uz;
+fix node No 166 dofs    uy uz;
+fix node No 167 dofs    uy uz;
+fix node No 168 dofs    uy uz;
+fix node No 169 dofs    uy uz;
+fix node No 170 dofs    uy uz;
+fix node No 171 dofs    uy uz;
+fix node No 172 dofs    uy uz;
+fix node No 173 dofs    uy uz;
+fix node No 174 dofs    uy uz;
+fix node No 175 dofs    uy uz;
+fix node No 176 dofs    uy uz;
+fix node No 177 dofs    uy uz;
+fix node No 178 dofs    uy uz;
+fix node No 179 dofs    uy uz;
+fix node No 180 dofs    uy uz;
+fix node No 181 dofs    uy uz;
+fix node No 182 dofs    uy uz;
+fix node No 183 dofs    uy uz;
+fix node No 184 dofs    uy uz;
+fix node No 185 dofs    uy uz;
+fix node No 186 dofs    uy uz;
+fix node No 187 dofs    uy uz;
+fix node No 188 dofs    uy uz;
+fix node No 189 dofs    uy uz;
+fix node No 190 dofs    uy uz;
+fix node No 191 dofs    uy uz;
+fix node No 192 dofs    uy uz;
+fix node No 193 dofs    uy uz;
+fix node No 194 dofs    uy uz;
+fix node No 195 dofs    uy uz;
+fix node No 196 dofs    uy uz;
+fix node No 197 dofs    uy uz;
+fix node No 198 dofs    uy uz;
+fix node No 199 dofs    uy uz;
+fix node No 200 dofs    uy uz;
+fix node No 201 dofs    uy uz;
+fix node No 202 dofs    uy uz;
+fix node No 203 dofs    uy uz;
+fix node No 204 dofs    uy uz;
+fix node No 205 dofs    uy uz;
+fix node No 206 dofs    uy uz;
+fix node No 207 dofs    uy uz;
+fix node No 208 dofs    uy uz;
+fix node No 209 dofs    uy uz;
+fix node No 210 dofs    uy uz;
+fix node No 211 dofs    uy uz;
+fix node No 212 dofs    uy uz;
+fix node No 213 dofs    uy uz;
+fix node No 214 dofs    uy uz;
+fix node No 215 dofs    uy uz;
+fix node No 216 dofs    uy uz;
+fix node No 217 dofs    uy uz;
+fix node No 218 dofs    uy uz;
+fix node No 219 dofs    uy uz;
+fix node No 220 dofs    uy uz;
+fix node No 221 dofs    uy uz;
+fix node No 222 dofs    uy uz;
+fix node No 223 dofs    uy uz;
+fix node No 224 dofs    uy uz;
+fix node No 225 dofs    uy uz;
+fix node No 226 dofs    uy uz;
+fix node No 227 dofs    uy uz;
+fix node No 228 dofs    uy uz;
+fix node No 229 dofs    uy uz;
+fix node No 230 dofs    uy uz;
+fix node No 231 dofs    uy uz;
+fix node No 232 dofs    uy uz;
+fix node No 233 dofs    uy uz;
+fix node No 234 dofs    uy uz;
+fix node No 235 dofs    uy uz;
+fix node No 236 dofs    uy uz;
+fix node No 237 dofs    uy uz;
+fix node No 238 dofs    uy uz;
+fix node No 239 dofs    uy uz;
+fix node No 240 dofs    uy uz;
+fix node No 241 dofs    uy uz;
+fix node No 242 dofs    uy uz;
+fix node No 243 dofs    uy uz;
+fix node No 244 dofs    uy uz;
+fix node No 245 dofs    uy uz;
+fix node No 246 dofs    uy uz;
+fix node No 247 dofs    uy uz;
+fix node No 248 dofs    uy uz;
+fix node No 249 dofs    uy uz;
+fix node No 250 dofs    uy uz;
+fix node No 251 dofs    uy uz;
+fix node No 252 dofs    uy uz;
+fix node No 253 dofs    uy uz;
+fix node No 254 dofs    uy uz;
+fix node No 255 dofs    uy uz;
+fix node No 256 dofs    uy uz;
+fix node No 257 dofs    uy uz;
+fix node No 258 dofs    uy uz;
+fix node No 259 dofs    uy uz;
+fix node No 260 dofs    uy uz;
+fix node No 261 dofs    uy uz;
+fix node No 262 dofs    uy uz;
+fix node No 263 dofs    uy uz;
+fix node No 264 dofs    uy uz;
+fix node No 265 dofs    uy uz;
+fix node No 266 dofs    uy uz;
+fix node No 267 dofs    uy uz;
+fix node No 268 dofs    uy uz;
+fix node No 269 dofs    uy uz;
+fix node No 270 dofs    uy uz;
+fix node No 271 dofs    uy uz;
+fix node No 272 dofs    uy uz;
+fix node No 273 dofs    uy uz;
+fix node No 274 dofs    uy uz;
+fix node No 275 dofs    uy uz;
+fix node No 276 dofs    uy uz;
+fix node No 277 dofs    uy uz;
+fix node No 278 dofs    uy uz;
+fix node No 279 dofs    uy uz;
+fix node No 280 dofs    uy uz;
+fix node No 281 dofs    uy uz;
+fix node No 282 dofs    uy uz;
+fix node No 283 dofs    uy uz;
+fix node No 284 dofs    uy uz;
+fix node No 285 dofs    uy uz;
+fix node No 286 dofs    uy uz;
+fix node No 287 dofs    uy uz;
+fix node No 288 dofs    uy uz;
+fix node No 289 dofs    uy uz;
+fix node No 290 dofs    uy uz;
+fix node No 291 dofs    uy uz;
+fix node No 292 dofs    uy uz;
+fix node No 293 dofs    uy uz;
+fix node No 294 dofs    uy uz;
+fix node No 295 dofs    uy uz;
+fix node No 296 dofs    uy uz;
+fix node No 297 dofs    uy uz;
+fix node No 298 dofs    uy uz;
+fix node No 299 dofs    uy uz;
+fix node No 300 dofs    uy uz;
+fix node No 301 dofs    uy uz;
+fix node No 302 dofs    uy uz;
+fix node No 303 dofs    uy uz;
+fix node No 304 dofs    uy uz;
+fix node No 305 dofs    uy uz;
+fix node No 306 dofs    uy uz;
+fix node No 307 dofs    uy uz;
+fix node No 308 dofs    uy uz;
+fix node No 309 dofs    uy uz;
+fix node No 310 dofs    uy uz;
+fix node No 311 dofs    uy uz;
+fix node No 312 dofs    uy uz;
+fix node No 313 dofs    uy uz;
+fix node No 314 dofs    uy uz;
+fix node No 315 dofs    uy uz;
+fix node No 316 dofs    uy uz;
+fix node No 317 dofs    uy uz;
+fix node No 318 dofs    uy uz;
+fix node No 319 dofs    uy uz;
+fix node No 320 dofs    uy uz;
+fix node No 321 dofs    uy uz;
+fix node No 322 dofs    uy uz;
+fix node No 323 dofs    uy uz;
+fix node No 324 dofs    uy uz;
+fix node No 325 dofs    uy uz;
+fix node No 326 dofs    uy uz;
+fix node No 327 dofs    uy uz;
+fix node No 328 dofs    uy uz;
+fix node No 329 dofs    uy uz;
+fix node No 330 dofs    uy uz;
+fix node No 331 dofs    uy uz;
+fix node No 332 dofs    uy uz;
+fix node No 333 dofs    uy uz;
+fix node No 334 dofs    uy uz;
+fix node No 335 dofs    uy uz;
+fix node No 336 dofs    uy uz;
+fix node No 337 dofs    uy uz;
+fix node No 338 dofs    uy uz;
+fix node No 339 dofs    uy uz;
+fix node No 340 dofs    uy uz;
+fix node No 341 dofs    uy uz;
+fix node No 342 dofs    uy uz;
+fix node No 343 dofs    uy uz;
+fix node No 344 dofs    uy uz;
+fix node No 345 dofs    uy uz;
+fix node No 346 dofs    uy uz;
+fix node No 347 dofs    uy uz;
+fix node No 348 dofs    uy uz;
+fix node No 349 dofs    uy uz;
+fix node No 350 dofs    uy uz;
+fix node No 351 dofs    uy uz;
+fix node No 352 dofs    uy uz;
+fix node No 353 dofs    uy uz;
+fix node No 354 dofs    uy uz;
+fix node No 355 dofs    uy uz;
+fix node No 356 dofs    uy uz;
+fix node No 357 dofs    uy uz;
+fix node No 358 dofs    uy uz;
+fix node No 359 dofs    uy uz;
+fix node No 360 dofs    uy uz;
+fix node No 361 dofs    uy uz;
+fix node No 362 dofs    uy uz;
+fix node No 363 dofs    uy uz;
+fix node No 364 dofs    uy uz;
+fix node No 365 dofs    uy uz;
+fix node No 366 dofs    uy uz;
+fix node No 367 dofs    uy uz;
+fix node No 368 dofs    uy uz;
+fix node No 369 dofs    uy uz;
+
+
+//============================= Rayleigh Damping ====================================================
+//Rayleigh Damping Parameters
+zeta = 0.0166667;
+fq1  = 3.75;
+fq2  = 11.25;
+omega1	= 2*pi*fq1;
+omega2	= 2*pi*fq2;
+zeta1 = zeta;
+zeta2 = zeta;
+alpha1	= 2*omega1*omega2*(zeta1*omega2-zeta2*omega1)/(omega2*omega2-omega1*omega1);
+beta1	= 2*              (zeta2*omega2-zeta1*omega1)/(omega2*omega2-omega1*omega1);
+add damping # 1 type Rayleigh with a0 = alpha1/s a1 = beta1*s stiffness_to_use = Initial_Stiffness;
+
+// add damping to elements
+add damping # 1 to element # 1;
+add damping # 1 to element # 2;
+add damping # 1 to element # 3;
+add damping # 1 to element # 4;
+add damping # 1 to element # 5;
+add damping # 1 to element # 6;
+add damping # 1 to element # 7;
+add damping # 1 to element # 8;
+add damping # 1 to element # 9;
+add damping # 1 to element # 10;
+add damping # 1 to element # 11;
+add damping # 1 to element # 12;
+add damping # 1 to element # 13;
+add damping # 1 to element # 14;
+add damping # 1 to element # 15;
+add damping # 1 to element # 16;
+add damping # 1 to element # 17;
+add damping # 1 to element # 18;
+add damping # 1 to element # 19;
+add damping # 1 to element # 20;
+
+
+
+
+	
+
+// ********************* 
+// Dynamic Loading 
+// ********************* 
+new loading stage "impose_motion";
+
+add imposed motion # 1001 to node # 1 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1002 to node # 2 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1003 to node # 3 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1004 to node # 4 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1005 to node # 5 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1006 to node # 6 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1007 to node # 7 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1008 to node # 8 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1009 to node # 9 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+
+
+// ********************* 
+// Define Dynamic Analysis 
+// ********************* 
+define dynamic integrator Newmark with gamma = 0.5 beta = 0.25;
+define algorithm With_no_convergence_check;
+define solver ProfileSPD;
+// simulate 15700 steps using transient algorithm time_step = 0.005*s;
+simulate 50 steps using transient algorithm time_step = 0.005*s;
+         
+bye;

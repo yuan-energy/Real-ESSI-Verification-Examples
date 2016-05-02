@@ -1,0 +1,57 @@
+model name "beam_element_presentation" ;
+
+add node #      1 at (          0.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      2 at (          0.000000*m,          0.000000*m,          6.000000*m) with 6 dofs;
+add node #      3 at (          6.000000*m,          0.000000*m,          6.000000*m) with 6 dofs;
+add node #      4 at (          6.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+
+elastic_constant  = 1e8*N/m^2; 
+b=1*m;
+h=1*m;
+rho   = 0*kg/m^3;     // Mass density
+add element # 1 type beam_elastic with nodes (1, 2) 
+	cross_section =  b*h
+	elastic_modulus =  elastic_constant
+	shear_modulus =  elastic_constant/2
+	torsion_Jx =  0.33*b*h^3
+	bending_Iy =  b*h^3/12
+	bending_Iz =  h*b^3/12
+	mass_density =   rho
+	xz_plane_vector = (1, 0, 1 ) 
+  	joint_1_offset = (0*m, 0*m, 0*m ) 
+  	joint_2_offset = (0*m, 0*m, 0*m );
+add element # 2 type beam_elastic with nodes (2,3) 
+	cross_section =  b*h
+	elastic_modulus =  elastic_constant
+	shear_modulus =  elastic_constant/2
+	torsion_Jx =  0.33*b*h^3
+	bending_Iy =  b*h^3/12
+	bending_Iz =  h*b^3/12
+	mass_density =   rho
+	xz_plane_vector = (1, 0, 1 ) 
+  	joint_1_offset = (0*m, 0*m, 0*m ) 
+  	joint_2_offset = (0*m, 0*m, 0*m );
+add element # 3 type beam_elastic with nodes (3,4) 
+	cross_section =  b*h
+	elastic_modulus =  elastic_constant
+	shear_modulus =  elastic_constant/2
+	torsion_Jx =  0.33*b*h^3
+	bending_Iy =  b*h^3/12
+	bending_Iz =  h*b^3/12
+	mass_density =   rho
+	xz_plane_vector = (1, 0, 1 ) 
+  	joint_1_offset = (0*m, 0*m, 0*m ) 
+  	joint_2_offset = (0*m, 0*m, 0*m );
+
+fix node #      1 dofs all    ;
+fix node #      4 dofs all    ;
+
+new loading stage "Fz";
+add load # 1 to node # 2 type linear Fz=50*N;
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+bye;

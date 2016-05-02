@@ -1,0 +1,45 @@
+model name "6meter_cantilever_4NodeANDES" ;
+
+add material # 1 type linear_elastic_isotropic_3d
+  mass_density = 0*kg/m^3
+  elastic_modulus = 1e8*N/m^2
+  poisson_ratio = 0.0;
+
+add node #      1 at (          0.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      2 at (          6.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      3 at (          1.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      4 at (          2.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      5 at (          3.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      6 at (          4.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      7 at (          5.000000*m,          0.000000*m,          0.000000*m) with 6 dofs;
+add node #      8 at (          6.000000*m,          1.000000*m,          0.000000*m) with 6 dofs;
+add node #      9 at (          0.000000*m,          1.000000*m,          0.000000*m) with 6 dofs;
+add node #     10 at (          5.000000*m,          1.000000*m,          0.000000*m) with 6 dofs;
+add node #     11 at (          4.000000*m,          1.000000*m,          0.000000*m) with 6 dofs;
+add node #     12 at (          3.000000*m,          1.000000*m,          0.000000*m) with 6 dofs;
+add node #     13 at (          2.000000*m,          1.000000*m,          0.000000*m) with 6 dofs;
+add node #     14 at (          1.000000*m,          1.000000*m,          0.000000*m) with 6 dofs;
+
+h     = 1*m;  
+add element # 1 type 4NodeShell_ANDES with nodes (1,3,14,9) use material # 1 thickness = h ; 
+add element # 2 type 4NodeShell_ANDES with nodes (3,4,13,14) use material # 1 thickness = h ; 
+add element # 3 type 4NodeShell_ANDES with nodes (4,5,12,13) use material # 1 thickness = h ; 
+add element # 4 type 4NodeShell_ANDES with nodes (5,6,11,12) use material # 1 thickness = h ; 
+add element # 5 type 4NodeShell_ANDES with nodes (6,7,10,11) use material # 1 thickness = h ; 
+add element # 6 type 4NodeShell_ANDES with nodes (7,2,8,10) use material # 1 thickness = h ; 
+
+fix node #      1 dofs all    ;
+fix node #      9 dofs all    ;
+
+new loading stage "Fy";
+
+add load # 1 to node # 8 type linear Fy=50*N;
+add load # 2 to node # 2 type linear Fy=50*N;
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+
+define load factor increment 1;
+simulate 1 steps using static algorithm;
+
+bye;

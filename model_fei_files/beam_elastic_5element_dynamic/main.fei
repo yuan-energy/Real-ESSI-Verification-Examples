@@ -1,0 +1,89 @@
+model name "beam_5element" ;
+
+// add node
+add node #  1 at (   0.0*m ,    0.0*m,     0.0*m)  with 6 dofs;
+add node #  2 at (   0.2*m ,    0.0*m,     0.0*m)  with 6 dofs;
+add node #  3 at (   0.4*m ,    0.0*m,     0.0*m)  with 6 dofs;
+add node #  4 at (   0.6*m ,    0.0*m,     0.0*m)  with 6 dofs;
+add node #  5 at (   0.8*m ,    0.0*m,     0.0*m)  with 6 dofs;
+add node #  6 at (   1.0*m ,    0.0*m,     0.0*m)  with 6 dofs;
+	
+// Geometry: width and height
+b=0.2*m;
+h=0.2*m;
+
+// Materials: properties
+natural_period    = 1*s;				
+natural_frequency  = 2*pi/natural_period;
+elastic_constant  = 1e9*N/m^2; 
+I=b*h^3/12.0;
+A=b*h;
+L=1*m;
+rho 	= (1.8751)^4*elastic_constant*I/(natural_frequency^2*L^4*A);
+possion_ratio=0.3;
+
+// add elements
+ii=1;
+while (ii<6) {
+	add element # ii type beam_elastic with nodes (ii,ii+1) 
+		cross_section =   b*h 
+		elastic_modulus =  elastic_constant
+		shear_modulus =  elastic_constant/2/(1+possion_ratio)
+		torsion_Jx =  0.33*b*h^3
+		bending_Iy =  b*h^3/12
+		bending_Iz =  b*h^3/12
+		mass_density = rho
+		xz_plane_vector = ( 1, 0, 1) 
+		joint_1_offset = (0*m, 0*m, 0*m) 
+		joint_2_offset = (0*m, 0*m, 0*m);
+	ii+=1;
+}
+
+// add boundary condition
+fix node #      1 dofs all;
+
+// // ----------------------------------------------------------------------------
+// // --slowLoading---------------------------------------------------------------
+// // add the 1 Newton load in 180 seconds. 
+// // ----------------------------------------------------------------------------
+// new loading stage "slowLoading";
+// add load # 1 to node # 6 type path_time_series 
+// 	Fz =  1.*N
+// 	series_file = "slowLoading.txt" ;
+// define dynamic integrator Newmark with gamma = 0.5 beta = 0.25;
+// define algorithm With_no_convergence_check ;
+// define solver ProfileSPD;
+// simulate 2000 steps using transient algorithm 
+// 	time_step = 0.1*s;
+
+// // ----------------------------------------------------------------------------
+// // --fastLoading---------------------------------------------------------------
+// // add the 1 Newton load in 0.6 seconds.
+// // ----------------------------------------------------------------------------
+// remove load # 1;
+// new loading stage "fastLoading";
+// add load # 2 to node # 6 type path_time_series 
+// 	Fz =  1.*N
+// 	series_file = "fastLoading.txt" ;
+// define dynamic integrator Newmark with gamma = 0.5 beta = 0.25;
+// define algorithm With_no_convergence_check ;
+// define solver ProfileSPD;
+// simulate 1000 steps using transient algorithm 
+// 	time_step = 0.01*s;
+
+// // ----------------------------------------------------------------------------
+// // --freeVibration-------------------------------------------------------------
+// // add a load and then release to free vibration
+// // ----------------------------------------------------------------------------
+// remove load # 2;
+new loading stage "freeVibration";
+add load # 3 to node # 6 type path_time_series 
+	Fz =  1.*N
+	series_file = "freeVibration.txt" ;
+define dynamic integrator Newmark with gamma = 0.5 beta = 0.25;
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+simulate 100 steps using transient algorithm 
+	time_step = 0.1*s;
+
+bye;

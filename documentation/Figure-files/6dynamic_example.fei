@@ -1,0 +1,108 @@
+model name "dynamic_example";
+
+add material # 1 type linear_elastic_isotropic_3d_LT
+	mass_density    = 2000*kg/m^3
+	elastic_modulus = 504000000.00*Pa
+	poisson_ratio   = 0.4;
+
+add node No 1 at (0*m, 0*m, 0*m) with 3 dofs;
+add node No 2 at (0*m, 0.5*m, 0*m) with 3 dofs;
+add node No 3 at (0*m, 1*m, 0*m) with 3 dofs;
+add node No 4 at (0.5*m, 0*m, 0*m) with 3 dofs;
+add node No 5 at (0.5*m, 0.5*m, 0*m) with 3 dofs;
+add node No 6 at (0.5*m, 1*m, 0*m) with 3 dofs;
+...
+...
+add node No 369 at (1*m, 1*m, 20*m) with 3 dofs;
+
+
+add element # 1 type 27NodeBrickLT with nodes (27,21,19,25,9,3,1,7,24,20,22,26,6,2,4,8,18,12,10,16,14,15,11,13,17,23,5) use material # 1 ;
+add element # 2 type 27NodeBrickLT with nodes (45,39,37,43,27,21,19,25,42,38,40,44,24,20,22,26,36,30,28,34,32,33,29,31,35,41,23) use material # 1 ;
+add element # 3 type 27NodeBrickLT with nodes (63,57,55,61,45,39,37,43,60,56,58,62,42,38,40,44,54,48,46,52,50,51,47,49,53,59,41) use material # 1 ;
+add element # 4 type 27NodeBrickLT with nodes (81,75,73,79,63,57,55,61,78,74,76,80,60,56,58,62,72,66,64,70,68,69,65,67,71,77,59) use material # 1 ;
+add element # 5 type 27NodeBrickLT with nodes (99,93,91,97,81,75,73,79,96,92,94,98,78,74,76,80,90,84,82,88,86,87,83,85,89,95,77) use material # 1 ;
+...
+...
+add element # 20 type 27NodeBrickLT with nodes (369,363,361,367,351,345,343,349,366,362,364,368,348,
+	344,346,350,360,354,352,358,356,357,353,355,359,365,347) use material # 1 ;
+
+add acceleration field # 1 ax = 0*g ay = 0*g az = -1*g ;
+add load # 1 to element # 1 type self_weight use acceleration field # 1;
+add load # 2 to element # 2 type self_weight use acceleration field # 1;
+add load # 3 to element # 3 type self_weight use acceleration field # 1;
+add load # 4 to element # 4 type self_weight use acceleration field # 1;
+add load # 5 to element # 5 type self_weight use acceleration field # 1;
+add load # 6 to element # 6 type self_weight use acceleration field # 1;
+...
+...
+add load # 20 to element # 20 type self_weight use acceleration field # 1;
+
+fix node No 1 dofs    uy uz;
+fix node No 2 dofs    uy uz;
+fix node No 3 dofs    uy uz;
+fix node No 4 dofs    uy uz;
+fix node No 5 dofs    uy uz;
+fix node No 6 dofs    uy uz;
+...
+...
+fix node No 369 dofs    uy uz;
+
+zeta = 0.0166667;
+fq1  = 3.75;
+fq2  = 11.25;
+omega1	= 2*pi*fq1;
+omega2	= 2*pi*fq2;
+zeta1 = zeta;
+zeta2 = zeta;
+alpha1	= 2*omega1*omega2*(zeta1*omega2-zeta2*omega1)/(omega2*omega2-omega1*omega1);
+beta1	= 2*              (zeta2*omega2-zeta1*omega1)/(omega2*omega2-omega1*omega1);
+add damping # 1 type Rayleigh with a0 = alpha1/s a1 = beta1*s stiffness_to_use = Initial_Stiffness;
+
+add damping # 1 to element # 1;
+add damping # 1 to element # 2;
+add damping # 1 to element # 3;
+add damping # 1 to element # 4;
+add damping # 1 to element # 5;
+add damping # 1 to element # 6;
+...
+...
+add damping # 1 to element # 20;
+
+new loading stage "impose_motion";
+add imposed motion # 1001 to node # 1 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1002 to node # 2 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+add imposed motion # 1003 to node # 3 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+...
+...
+add imposed motion # 1009 to node # 9 dof ux 
+	displacement_scale_unit = 1*m 
+	displacement_file       = "dis.txt" 
+	velocity_scale_unit     = 1*m/s 
+	velocity_file           = "vel.txt" 
+	acceleration_scale_unit = 1*m/s^2 
+	acceleration_file       = "acc.txt";
+
+define dynamic integrator Newmark with gamma = 0.5 beta = 0.25;
+define algorithm With_no_convergence_check;
+define solver ProfileSPD;
+simulate 50 steps using transient algorithm time_step = 0.005*s;
+         
+bye;

@@ -1,0 +1,64 @@
+model name "DRM" ;
+
+//Material for soil
+add material # 1 type linear_elastic_isotropic_3d_LT
+  mass_density = 2000*kg/m^3
+  elastic_modulus = 1300*MPa
+  poisson_ratio = 0.3;
+
+//Material for DRM layer
+add material # 2 type linear_elastic_isotropic_3d_LT
+  mass_density = 2000*kg/m^3
+  elastic_modulus = 1300*MPa
+  poisson_ratio = 0.3;
+
+//Material for exterior layer
+add material # 3 type linear_elastic_isotropic_3d_LT
+  mass_density = 2000*kg/m^3
+  elastic_modulus = 1300*MPa
+  poisson_ratio = 0.3;
+//
+add node #      1 at (          0.000000*m,          0.000000*m,          0.000000*m) with 3 dofs;
+add node #      2 at (          5.000000*m,          0.000000*m,          0.000000*m) with 3 dofs;
+add node #      3 at (          5.000000*m,          5.000000*m,          0.000000*m) with 3 dofs;
+add node #      4 at (          0.000000*m,          5.000000*m,          0.000000*m) with 3 dofs;
+add node #      5 at (          5.000000*m,          0.000000*m,         50.000000*m) with 3 dofs;
+add node #      6 at (          5.000000*m,          0.000000*m,          5.000000*m) with 3 dofs;
+...
+...
+add node #     52 at (          0.000000*m,          5.000000*m,         -5.000000*m) with 3 dofs;
+
+//
+add element #       1 type 8NodeBrickLT with nodes(      1,      4,      3,      2,     24,     44,     34,      6) use material #   1;
+add element #       2 type 8NodeBrickLT with nodes(     24,     44,     34,      6,     23,     43,     33,      7) use material #   1;
+...
+add element #      12 type 8NodeBrickLT with nodes(     48,     47,     45,     46,     52,     51,     49,     50) use material #   3;
+
+//
+fix node #      1 dofs uy    ;
+fix node #      1 dofs uz    ;
+fix node #      2 dofs uy    ;
+fix node #      2 dofs uz    ;
+fix node #      3 dofs uy    ;
+fix node #      3 dofs uz    ;
+fix node #      4 dofs uy    ;
+fix node #      4 dofs uz    ;
+...
+fix node #     51 dofs ux    ;
+
+
+new loading stage "1D";
+add domain reduction method loading #  1
+  hdf5_file = "input.hdf5";
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+define dynamic integrator Newmark with 
+	gamma = 0.5050 
+	beta = 0.2525;
+simulate 999 steps using transient algorithm 
+	time_step = 0.01*s;
+
+bye;
+
+

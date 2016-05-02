@@ -1,0 +1,59 @@
+model name "DRM" ;
+
+//Material for soil
+add material # 1 type linear_elastic_isotropic_3d_LT
+  mass_density = 2000*kg/m^3
+  elastic_modulus = 1300*MPa
+  poisson_ratio = 0.3;
+
+//Material for DRM layer
+add material # 2 type linear_elastic_isotropic_3d_LT
+  mass_density = 2000*kg/m^3
+  elastic_modulus = 1300*MPa
+  poisson_ratio = 0.3;
+
+//Material for exterior layer
+add material # 3 type linear_elastic_isotropic_3d_LT
+  mass_density = 2000*kg/m^3
+  elastic_modulus = 1300*MPa
+  poisson_ratio = 0.3;
+
+//
+add node #      1 at (          0.000000*m,          0.000000*m,          0.000000*m) with 3 dofs;
+add node #      2 at (         50.000000*m,          0.000000*m,          0.000000*m) with 3 dofs;
+add node #      3 at (          5.000000*m,          0.000000*m,          0.000000*m) with 3 dofs;
+add node #      4 at (         10.000000*m,          0.000000*m,          0.000000*m) with 3 dofs;
+add node #      5 at (         15.000000*m,          0.000000*m,          0.000000*m) with 3 dofs;
+add node #      6 at (         20.000000*m,          0.000000*m,          0.000000*m) with 3 dofs;
+add node #      7 at (         25.000000*m,          0.000000*m,          0.000000*m) with 3 dofs;
+...
+...
+add node #   2925 at (         55.000000*m,         55.000000*m,         -5.000000*m) with 3 dofs;
+
+//
+add element #       1 type 8NodeBrickLT with nodes(      1,     40,     41,      3,    150,    441,    603,    151) use material #   1;
+add element #       2 type 8NodeBrickLT with nodes(      3,     41,     50,      4,    151,    603,    684,    160) use material #   1;
+...
+add element #    2352 type 8NodeBrickLT with nodes(   2925,   2924,   2922,   2923,   2921,   2920,   2918,   2919) use material #   3;
+
+//
+fix node #   1332 dofs all    ;
+fix node #   1334 dofs all    ;
+...
+...
+fix node #   2924 dofs all    ;
+
+new loading stage "3D";
+add domain reduction method loading #  1
+  hdf5_file = "input.hdf5";
+
+define algorithm With_no_convergence_check ;
+define solver ProfileSPD;
+define dynamic integrator Newmark with 
+  gamma = 0.5050 
+  beta = 0.2525;
+
+simulate 999 steps using transient algorithm 
+	time_step = 0.01*s;
+
+bye;
