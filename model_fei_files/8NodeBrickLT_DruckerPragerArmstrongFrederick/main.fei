@@ -126,21 +126,21 @@ fix node # 6 dofs ux;
 fix node # 7 dofs ux uy;
 fix node # 8 dofs uy;
 
-add constraint equal dof with master node # 1 and slave node # 3 dof to constrain ux;
-add constraint equal dof with master node # 1 and slave node # 4 dof to constrain ux;
-add constraint equal dof with master node # 1 and slave node # 2 dof to constrain ux;
-remove constraint equaldof node # 6;
-remove constraint equaldof node # 7;
-remove constraint equaldof node # 8;
+//add constraint equal dof with master node # 1 and slave node # 3 dof to constrain ux;
+//add constraint equal dof with master node # 1 and slave node # 4 dof to constrain ux;
+//add constraint equal dof with master node # 1 and slave node # 2 dof to constrain ux;
+//remove constraint equaldof node # 6;
+//remove constraint equaldof node # 7;
+//remove constraint equaldof node # 8;
 
 n = 1;
-while(n<=1)
-{
-    add load # 14+n to node # n type path_time_series 
-     Fx = 170.*kN 
-     series_file = "path.txt";        
-    n+=1;
-}
+//while(n<=1)
+//{
+    //add load # 14+n to node # n type path_time_series 
+     //Fx = 170.*kN 
+     //series_file = "path.txt";        
+    //n+=1;
+//}
 
 define load factor increment 1/Nsteps;
 
